@@ -38,10 +38,10 @@ a.RegBtn {
     text-align: center;
 }
 
-.welcome ul li {
+.welcome h2 {
     background-color: rgb(74, 180, 223);
-    border-radius: 30px;
+    border-radius: 15px;
     color: black;
-    width: 350px;
-    margin-left: 435px;
+    width: 380px;
+    margin-left: 420px;
 }

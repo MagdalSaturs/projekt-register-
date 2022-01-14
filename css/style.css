@@ -1,0 +1,47 @@
+body{
+    background-color: rgb(31, 28, 28);
+}
+
+.container {
+    text-align: center;
+    margin: 30px;
+}
+
+.logo {
+    color: white;
+    margin: 10px;
+    text-align: center;
+    font-size: 20px;
+}
+
+a.LogBtn {
+    background: white;
+    color: black;
+    padding: 10px 150px;
+    border-radius: 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 18px;
+}
+
+a.RegBtn {
+    background: skyblue;
+    color: black;
+    padding: 10px 137px;
+    border-radius: 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 18px;
+}
+
+.welcome {
+    text-align: center;
+}
+
+.welcome ul li {
+    background-color: rgb(74, 180, 223);
+    border-radius: 30px;
+    color: black;
+    width: 350px;
+    margin-left: 435px;
+}

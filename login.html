@@ -4,12 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/reset.css">
     <title>Login</title>
 </head>
 <body>
     <style>
         body {
             background-color: rgb(31, 28, 28);
+        }
+
+        .container {
+            text-align: center;
         }
 
         .PowBtn {
@@ -20,35 +25,35 @@
             text-decoration: none;
             text-transform: uppercase;
             font-size: 25px;
+            margin: 25px;
         }
 
         .log {
             text-align: center;
             margin: 30px;
-            color: white;
         }
 
+        .button {
+            border-radius: 10px;
+            height: 30px;
+            width: 50px;
+        }
     </style>
+    </br>
     <div class="container">
-        <a href="index.html" class="PowBtn"><</a>
+        <a href="index.html" class="PowBtn">Strona główna</a>
     </div>
 
     <div class="log">
-        <input id="login" type="text">
-        <h3>
-            login
-        </h3>
+        <input id="login" type="text" placeholder="login">
     </div>
 
     <div class="log">
-        <input id="HasloLog" type="password">
-        <h3>
-            hasło
-        </h3>
+        <input id="HasloLog" type="password" placeholder="password"" >
     </div>
 
     <div class="log">
-        <button id="LOGIN" onclick="login">login</button>
+        <button id="LOGIN" onclick="login" class="button">login</button>
     </div>
 </body>
 </html>

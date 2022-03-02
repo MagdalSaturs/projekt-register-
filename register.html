@@ -4,12 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/reset.css">
     <title>Login</title>
 </head>
 <body>
     <style>
         body {
             background-color: rgb(31, 28, 28);
+        }
+
+        .container {
+            text-align: center;
         }
 
         .PowBtn {
@@ -20,48 +25,56 @@
             text-decoration: none;
             text-transform: uppercase;
             font-size: 25px;
+            margin: 25px;
         }
 
         .reg {
             text-align: center;
             margin: 30px;
-            color: white;
+        }
+
+        
+        .button {
+            border-radius: 10px;
+            height: 30px;
+            width: 50px;
         }
     </style>
+    </br>
     <div class="container">
-        <a href="index.html" class="PowBtn"><</a>
+        <a href="index.html" class="PowBtn">Strona główna</a>
     </div>
 
     <div class="reg">
-        <input id="login" type="text">
-        <h3>
-            login
-        </h3>
+        <input id="name" type="text" placeholder="name">
     </div>
 
     <div class="reg">
-        <input id="haslo1" type="password">
-        <h3>
-            hasło
-        </h3>
+        <input id="username" type="text" placeholder="username">
     </div>
 
     <div class="reg">
-        <input id="haslo2" type="password">
-        <h3>
-            powtórz hasło
-        </h3>
+        <input id="login" type="text" placeholder="login">
     </div>
 
     <div class="reg">
-        <input id="gmail" type="text">
-        <h3>
-            gmail
-        </h3>
+        <input id="haslo1" type="password" placeholder="password">
     </div>
 
     <div class="reg">
-        <button id="Register" onclick="register">register</button>
+        <input id="haslo2" type="password" placeholder="repear password">
+    </div>
+
+    <div class="reg">
+        <input id="gmail" type="text" placeholder="gmail">
+    </div>
+
+    <div class="reg">
+        <input id="phone" type="number" placeholder="number">
+    </div>
+
+    <div class="reg">
+        <button id="Register" onclick="register" class="button">register</button>
     </div>
 </body>
 </html>

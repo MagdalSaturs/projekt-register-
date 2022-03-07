@@ -22,7 +22,7 @@ body {
 
   .row {
     display: grid;
-    grid-template-columns: 60px 1fr;
+    grid-template-columns: 50px 1fr;
     margin-left: 230px;
     margin-right: 230px;
     grid-column-gap: 30%;
@@ -31,6 +31,7 @@ body {
     padding: 5px;
     background: silver;
     font-family: Helvetica;
+    border-radius: 10px;
   }
   
   .cover img {
@@ -39,9 +40,36 @@ body {
   
   .title {
     font-weight: bold;
-    font-size: 30px;
+    font-size: 25px;
   }
   
-  .author {
-    color: gray;
-  }
+.author {
+  color: gray;
+}
+
+.row-1 {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  margin-left: 230px;
+  margin-right: 230px;
+  grid-column-gap: 30%;
+  align-items: center;
+  border: 1px solid black;
+  padding: 5px;
+  background: silver;
+  font-family: Helvetica;
+  border-radius: 10px;
+}
+  
+  .cover-1 img {
+    width: 100%;
+}
+  
+  .title-1 {
+    font-weight: bold;
+    font-size: 25px;
+}
+  
+.author-1 {
+  color: gray;
+}

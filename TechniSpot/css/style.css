@@ -1,6 +1,6 @@
 body {
     font-family: sans-serif;
-    background-color: rgb(247, 232, 232);
+    background-color: rgb(23, 23, 23);
 }
 
 .w3-container h1 {
@@ -9,7 +9,7 @@ body {
     font-weight: bold;
     padding: auto;
     font-size: 28px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     margin-left: 12px;
 }
 
@@ -22,7 +22,9 @@ body {
 
   .row {
     display: grid;
-    grid-template-columns: 100px 1fr;
+    grid-template-columns: 60px 1fr;
+    margin-left: 230px;
+    margin-right: 230px;
     grid-column-gap: 30%;
     align-items: center;
     border: 1px solid black;

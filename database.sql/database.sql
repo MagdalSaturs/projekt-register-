@@ -12,25 +12,40 @@ GO
 
 CREATE TABLE Logowanie (
 	Id INT NOT NULL IDENTITY PRIMARY KEY,
-    Login VARCHAR(255) NOT NULL,
-    Haslo VARCHAR(255) NOT NULL,
-    Email VARCHAR(255) NOT NULL,
-    Rejestracja DATETIME NOT NULL DEFAULT(GETDATE()),
-    Logowanie DATETIME DEFAULT(GETDATE())
+	Imie VARCHAR(50) NOT NULL,
+	Nazwisko VARCHAR(50) NOT NULL,
+	Login VARCHAR(255) NOT NULL,
+	Haslo VARCHAR(255) NOT NULL,
+	Email VARCHAR(255) NOT NULL,
+	Rejestracja DATETIME NOT NULL DEFAULT(GETDATE()),
+	Logowanie DATETIME DEFAULT(GETDATE()),
+	Umowa VARCHAR(3) NOT NULL DEFAULT('NIE') CHECK(Umowa LIKE 'NIE' OR Umowa LIKE 'TAK')
 )
 
 INSERT INTO Logowanie
 VALUES
-('admin', 'adminadmin', 'admin@gmail.com', DEFAULT, DEFAULT)
+('Admin', 'Administrator' , 'admin', 'adminadmin', 'admin@gmail.com', DEFAULT, DEFAULT)
 
+CREATE TABLE Playlista (
+	Id INT NOT NULL IDENTITY UNIQUE,
+	Nazwa VARCHAR(50) NOT NULL DEFAULT('Ulubione')
+	Typ VARCHAR(15) CHECK(Typ IN('POP', 'ROCK','RAP', 'Trap')),
+	DataPublikacji DATE DEFAULT(GETDATE())
+	Uzytkownik_Id INT NOT NULL FOREIGN KEY REFERENCES Logowanie (Id)
+)
+
+CREATE TABLE Playlista_Songs (
+	Playlista_Id INT FOREIGN KEY REFERENCES Playlista (Id),
+	Songs_Id INT FOREIGN KEY REFERENCES Songs (Id)
+)
 
 CREATE TABLE Songs (
-Id INT NOT NULL IDENTITY UNIQUE,
-Tytul VARCHAR(30) NOT NULL CHECK(LEN(Tytul) >= 3),
-Wykonawca VARCHAR(30) NOT NULL CHECK(LEN(Wykonawca) >= 2),
-Kategoria VARCHAR(15) CHECK(Kategoria IN('POP', 'ROCK','RAP', 'Trap')),
-Kraj VARCHAR(30) NOT NULL CHECK(LEN(Kraj) >= 3),
-DataDodania DATE NOT NULL,
+	Id INT NOT NULL IDENTITY UNIQUE,
+	Tytul VARCHAR(30) NOT NULL CHECK(LEN(Tytul) >= 3),
+	Wykonawca VARCHAR(30) NOT NULL CHECK(LEN(Wykonawca) >= 2),
+	Kategoria VARCHAR(15) CHECK(Kategoria IN('POP', 'ROCK','RAP', 'Trap')),
+	Kraj VARCHAR(30) NOT NULL CHECK(LEN(Kraj) >= 3),
+	DataDodania DATE NOT NULL,
 )
 
 INSERT INTO Songs 

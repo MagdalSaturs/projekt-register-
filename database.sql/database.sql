@@ -1,3 +1,4 @@
+Magda Saturska
 USE master
 GO
 
@@ -10,8 +11,9 @@ GO
 USE Projekt
 GO
 
-CREATE TABLE Uzytkownicy (
+CREATE TABLE Uzytkownik (
 	Id INT NOT NULL IDENTITY PRIMARY KEY,
+	Admin VARCHAR(30) CHECK(Admin IN('TAK', 'NIE') NOT NULL,
     Imie VARCHAR(25) NOT NULL,
     Nazwisko VARCHAR(25) NOT NULL,
     Login VARCHAR(25) NOT NULL,
@@ -22,16 +24,16 @@ CREATE TABLE Uzytkownicy (
     DataLogowania DATETIME NOT NULL DEFAULT(GETDATE())
 )
 /*
-INSERT INTO Uzytkownicy
+INSERT INTO Uzytkownik
 VALUES
-('Admin', 'Admin', 'admin', 'adminadmin', 'TAK', 'admin@admin.com', DEFAULT, DEFAULT)
+('TAK','Admin', 'Admin', 'admin', 'adminadmin', 'TAK', 'admin@admin.com', DEFAULT, DEFAULT)
 */
 CREATE TABLE Playlista (
 	Id INT NOT NULL IDENTITY PRIMARY KEY,
     Nazwa VARCHAR(100) NOT NULL,
     Typ VARCHAR(25) CHECK(Typ IN('Publiczna','Prywtna')) NOT NULL,
     DataPublikacji DATETIME NOT NULL DEFAULT(GETDATE()),
-    UzytkownicyId INT NOT NULL FOREIGN KEY REFERENCES Uzytkownicy(Id)
+    UzytkownicyId INT NOT NULL FOREIGN KEY REFERENCES Uzytkownik(Id)
 )
 
 CREATE TABLE Piosenka (

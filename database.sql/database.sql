@@ -23,11 +23,11 @@ CREATE TABLE Uzytkownik (
     DataRejestracji DATETIME NOT NULL DEFAULT(GETDATE()),
     DataLogowania DATETIME NOT NULL DEFAULT(GETDATE())
 )
-/*
+
 INSERT INTO Uzytkownik
 VALUES
 ('TAK','Admin', 'Admin', 'admin', 'adminadmin', 'TAK', 'admin@admin.com', DEFAULT, DEFAULT)
-*/
+
 CREATE TABLE Playlista (
 	Id INT NOT NULL IDENTITY PRIMARY KEY,
     Nazwa VARCHAR(100) NOT NULL,

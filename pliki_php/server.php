@@ -7,7 +7,7 @@ $email    = "";
 $errors = array(); 
 
 // połączenie z bazą danych
-$db = mysqli_connect('localhost', 'root', '', 'project');
+$db = mysqli_connect('db', 'user', 'user', 'myDb');
 
 // logowanie użytkownika
 if (isset($_POST['reg_user'])) {
@@ -19,7 +19,7 @@ if (isset($_POST['reg_user'])) {
 
   // sprawdzanie czy wartości zostały prawidłowo podane
   // dzięki dodaniu(array_push()) 
-błąd odpowiadający tablicy $errors
+  //błąd odpowiadający tablicy $errors
   if (empty($username)) { array_push($errors, "Username is required"); }
   if (empty($email)) { array_push($errors, "Email is required"); }
   if (empty($password_1)) { array_push($errors, "Password is required"); }

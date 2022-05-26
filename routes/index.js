@@ -128,9 +128,7 @@ async function showPeople(req, res) {
   }
 
   res.render('index', { 
-    title: 'Lista Użytkownikó', 
-    songs: songs, 
-    message: res.message, 
+    title: 'Lista Uzytkowników',  
     umowa: req.query.umowa,
     userLogin: req.session?.userLogin
    })

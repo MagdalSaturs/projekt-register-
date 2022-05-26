@@ -16,7 +16,7 @@ router.get("/", function(request, response, next){
 		}
 		else
 		{
-			response.render('sample_data', {title:'Node.js MySQL CRUD Application', action:'list', sampleData:data, message:request.flash('success')});
+			response.render('sample_data', {title:'Node.js MySQL projekt Application', action:'list', sampleData:data, message:request.flash('success')});
 		}
 
 	});

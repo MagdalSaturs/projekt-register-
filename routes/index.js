@@ -4,7 +4,7 @@ const sql = require('mssql')
 const router = express.Router()
 const { request } = require('../database')
 
-async function showProducts(req, res) {
+async function showSongs(req, res) {
   let songs = []
 
   try {
@@ -54,7 +54,7 @@ async function addNewProduct(req, res, next) {
     console.error('Nie udało się dodać piosenki', err)
   }
 
-  showProducts(req, res)
+  showSongs(req, res)
 }
 
 async function deleteProduct(req, res) {
@@ -71,7 +71,7 @@ async function deleteProduct(req, res) {
 
   res.message = `Usunięto piosenke o id ${req.params.id}`;
 
-    showProducts(req, res)
+    showSongs(req, res)
 }
 
 async function showLoginForm(req, res) {
@@ -91,7 +91,7 @@ async function login(req, res) {
   
     if (result.rowsAffected[0] === 1) {
       req.session.userLogin = login;
-      showProducts(req, res);
+      showSongs(req, res);
     } else {
       res.render('login', {title: 'Logownie', error: 'Logowanie nieudane'})
     }
@@ -104,16 +104,45 @@ async function login(req, res) {
 function logout(req, res) {
   req.session.destroy();
 
-  showProducts(req, res);
+  showSongs(req, res);
 }
 
-router.get('/', showProducts);
+async function showPeople(req, res) {
+  let products = []
+
+  try {
+    const dbRequest = await request()
+    let result;
+
+    if (req.query.umowa) {
+      result = await dbRequest
+        .input('umowa', sql.VarChar(3), req.query.Umowa)
+        .query('SELECT * FROM Uzytkownik WHERE Umowa IS LIKE Nie')
+    } else {
+      result = await dbRequest.query('SELECT * FROM Uzytkownik')
+    }
+
+    songs = result.recordset
+  } catch (err) {
+    console.error('Nie udało się pobrać użytkownika', err)
+  }
+
+  res.render('index', { 
+    title: 'Lista Użytkownikó', 
+    songs: songs, 
+    message: res.message, 
+    umowa: req.query.umowa,
+    userLogin: req.session?.userLogin
+   })
+}
+
+router.get('/', showSongs);
 router.get('/new-song', showNewProductForm);
 router.post('/new-song', addNewProduct);
 router.post('/song/:id/delete', deleteProduct);
 router.get('/login', showLoginForm);
 router.post('/login', login);
 router.post('/logout', logout);
-router.get('/people', Uzytkownik);
+router.get('/Uzytkownik', showPeople);
 
 module.exports = router;

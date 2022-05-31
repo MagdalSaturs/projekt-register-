@@ -138,6 +138,29 @@ async function showRegisterForm(req, res) {
   res.render('Register', { title: 'Rejestracja' })
 }
 
+async function register(req, res) {
+  const {name, login, password} = req.body;
+
+  try {
+    const dbRequest = await request()
+
+    const result = await dbRequest
+      .input('Imie', sql.VarChar(25), login)
+      .input('Haslo', sql.VarChar(25), password)
+      .query('SELECT Imie FROM Uzytkownik WHERE Login = @Imie AND Haslo = @Haslo')
+  
+    if (result.rowsAffected[0] === 1) {
+      req.session.userLogin = login;
+      showSongs(req, res);
+    } else {
+      res.render('Register', {title: 'Stwórz konto', error: 'Założenie konta się nie powiedło'})
+    }
+  } catch (err) {
+    res.render('Register', {title: 'Logownie', error: 'Założenie konta się nie powiedło'})
+  }
+
+}
+
 router.get('/', showSongs);
 router.get('/new-song', showNewProductForm);
 router.post('/new-song', addNewProduct);
@@ -147,5 +170,6 @@ router.post('/login', login);
 router.post('/logout', logout);
 router.get('/Uzytkownik', showPeople);
 router.get('/Register', showRegisterForm);
+router.post('/Register', register);
 
 module.exports = router;

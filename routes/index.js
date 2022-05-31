@@ -14,7 +14,7 @@ async function showSongs(req, res) {
     if (req.query.kategoria) {
       result = await dbRequest
         .input('Kategoria', sql.VarChar(15), req.query.kategoria)
-        .query('SELECT * FROM Piosenka')
+        .query('SELECT * FROM Piosenka WHERE Kategoria = @Kategoria')
     } else {
       result = await dbRequest.query('SELECT * FROM Piosenka')
     }

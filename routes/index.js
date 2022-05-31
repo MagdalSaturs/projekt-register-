@@ -134,6 +134,10 @@ async function showPeople(req, res) {
    })``
 }
 
+async function showRegisterForm(req, res) {
+  res.render('Uzytkownik', { title: 'Logowanie' })
+}
+
 router.get('/', showSongs);
 router.get('/new-song', showNewProductForm);
 router.post('/new-song', addNewProduct);
@@ -142,5 +146,6 @@ router.get('/login', showLoginForm);
 router.post('/login', login);
 router.post('/logout', logout);
 router.get('/Uzytkownik', showPeople);
+router.get('/register', showRegisterForm);
 
 module.exports = router;

@@ -11,10 +11,10 @@ async function showSongs(req, res) {
     const dbRequest = await request()
     let result;
 
-    if (req.query.kategoria) {
+    if (req.query.kategoria || req.query.kraj) {
       result = await dbRequest
         .input('Kategoria', sql.VarChar(15), req.query.kategoria)
-        .query('SELECT * FROM Piosenka WHERE Kategoria = @Kategoria')
+        .query('SELECT * FROM Piosenka WHERE Kategoria = @Kategoria AND KrajPochodzenia = @KrajPochodzenia')
     } else {
       result = await dbRequest.query('SELECT * FROM Piosenka')
     }

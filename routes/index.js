@@ -64,7 +64,7 @@ async function deleteProduct(req, res) {
 
     await dbRequest
       .input('Id', sql.INT, req.params.id)
-      .query('DELETE FROM Piosenak WHERE Id = @Id')
+      .query('DELETE FROM Piosenak WHERE Id = @Id-')
   } catch (err) {
     console.error('Nie udało się usunąć piosenki', err)
   }

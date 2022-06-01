@@ -1,3 +1,9 @@
+    {{#if error}}
+    <div class="alert alert-danger mt-2" role="alert">
+      {{error}}
+    </div>
+    {{/if}}
+
 <form action="" method="POST">
 
      <div class="mb-3">
@@ -33,8 +39,8 @@
     <div class="mb-5">
         <label for="umowa" class="form-label">Umowa</label>
         <select class="form-control" name="umowa" id="umowa">
-            <option value="yes">Tak</option>
-            <option value="no">Nie</option>
+            <option value="TAK">Tak</option>
+            <option value="NIE">Nie</option>
         </select>
     </div>
 

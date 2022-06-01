@@ -7,14 +7,30 @@ const { request } = require('../database')
 async function showSongs(req, res) {
   let songs = []
 
+  if (!req.session || !req.session.userLogin) {
+    res.redirect('/login')
+    return;
+  }
+
   try {
     const dbRequest = await request()
     let result;
 
-    if (req.query.kategoria || req.query.kraj) {
+    
+
+    if (req.query.kategoria?.length > 0 && req.query.kraj?.length > 0) {
       result = await dbRequest
         .input('Kategoria', sql.VarChar(15), req.query.kategoria)
+        .input('KrajPochodzenia', sql.VarChar(15), req.query.kraj)
         .query('SELECT * FROM Piosenka WHERE Kategoria = @Kategoria AND KrajPochodzenia = @KrajPochodzenia')
+    } else if (req.query.kategoria?.length > 0) {
+      result = await dbRequest
+        .input('Kategoria', sql.VarChar(15), req.query.kategoria)
+        .query('SELECT * FROM Piosenka WHERE Kategoria = @Kategoria')
+    } else if (req.query.kraj?.length > 0) {
+      result = await dbRequest
+        .input('KrajPochodzenia', sql.VarChar(15), req.query.kraj)
+        .query('SELECT * FROM Piosenka WHERE KrajPochodzenia = @KrajPochodzenia')
     } else {
       result = await dbRequest.query('SELECT * FROM Piosenka')
     }
@@ -91,7 +107,7 @@ async function login(req, res) {
   
     if (result.rowsAffected[0] === 1) {
       req.session.userLogin = login;
-      showSongs(req, res);
+      res.redirect('/')
     } else {
       res.render('login', {title: 'Logownie', error: 'Logowanie nieudane'})
     }
@@ -104,7 +120,7 @@ async function login(req, res) {
 function logout(req, res) {
   req.session.destroy();
 
-  showSongs(req, res);
+  res.redirect('/login')
 }
 
 async function showPeople(req, res) {
@@ -145,13 +161,14 @@ async function register(req, res) {
     const dbRequest = await request()
 
     const result = await dbRequest
+      .input('Admin', sql.VarChar(3), 'NIE')
       .input('Imie', sql.VarChar(25), imie)
       .input('Nazwisko', sql.VarChar(25), nazwisko)
       .input('Login', sql.VarChar(25), login)
       .input('Haslo', sql.VarChar(25), haslo)
       .input('Email', sql.VarChar(25), email)
       .input('Umowa', sql.VarChar(25), umowa)
-      .query('INSERT INTO Uzytkownik VALUES (NIE, @Imie, @Nazwisko, @Login, @Haslo, @Email, @Umowa, DEFAULT, DEFAULT)'
+      .query('INSERT INTO Uzytkownik VALUES (@Admin, @Imie, @Nazwisko, @Login, @Haslo, @Umowa, @Email, DEFAULT, DEFAULT)'
     )
   
     if (result.rowsAffected[0] === 1) {
@@ -161,6 +178,7 @@ async function register(req, res) {
       res.render('Register', {title: 'Stwórz konto', error: 'Założenie konta się nie powiedło'})
     }
   } catch (err) {
+    console.error(err);
     res.render('Register', {title: 'Logownie', error: 'Założenie konta się nie powiedło'})
   }
 

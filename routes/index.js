@@ -37,7 +37,7 @@ async function showNewProductForm(req, res) {
   res.render('new-song', { title: 'Nowa piosenka' })
 }
 
-async function addNewProduct(req, res, next) {
+async function addNewProduct(req, res, next) { 
   try {
     const dbRequest = await request()
     await dbRequest
@@ -139,15 +139,20 @@ async function showRegisterForm(req, res) {
 }
 
 async function register(req, res) {
-  const {name, login, password} = req.body;
+  const {imie, nazwisko, login, haslo, email, umowa} = req.body;
 
   try {
     const dbRequest = await request()
 
     const result = await dbRequest
-      .input('Imie', sql.VarChar(25), login)
-      .input('Haslo', sql.VarChar(25), password)
-      .query('SELECT Imie FROM Uzytkownik WHERE Login = @Imie AND Haslo = @Haslo')
+      .input('Imie', sql.VarChar(25), imie)
+      .input('Nazwisko', sql.VarChar(25), nazwisko)
+      .input('Login', sql.VarChar(25), login)
+      .input('Haslo', sql.VarChar(25), haslo)
+      .input('Email', sql.VarChar(25), email)
+      .input('Umowa', sql.VarChar(25), umowa)
+      .query('INSERT INTO Uzytkownik VALUES (NIE, @Imie, @Nazwisko, @Login, @Haslo, @Email, @Umowa, DEFAULT, DEFAULT)'
+    )
   
     if (result.rowsAffected[0] === 1) {
       req.session.userLogin = login;

@@ -34,6 +34,7 @@
     <thead>
         <tr>
             <th>Id</th>
+            <th>Okładka</th>
             <th>Tytuł</th>
             <th>Kategoria</th>
             <th>Czas trwania</th>
@@ -47,7 +48,10 @@
         {{#each songs}}
         <tr>
             <td>{{this.Id}}</td>
-            <td>{{this.Tytul}}   
+            <td>
+              <img src="{{this.LinkOkladki}}" alt="" width="100%" height="100%">
+            </td>
+            <td>{{this.Tytul}}
             <td>{{this.Kategoria}}</td>
             <td>{{this.CzasTrwania}}</td>
             <td>{{this.Wykonawca}}</td>

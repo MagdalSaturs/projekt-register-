@@ -64,7 +64,7 @@ async function addNewProduct(req, res, next) {
       .input('CzasTrwania', sql.Time, req.body.CzasTrwania)
       .input('Wykonawca', sql.VarChar(30), req.body.Wykonawca)
       .input('Kategoria', sql.VarChar(15), req.body.kategoria)
-      .input('KrajPochodzenia', sql.VarChar(30), parseFloat(req.body.KrajPochodzenia))
+      .input('KrajPochodzenia', sql.VarChar(30), req.body.KrajPochodzenia)
       .input('DataDodania', sql.Date, parseInt(req.body.DataDodania))
       .input('LinkOkladki', sql.VarChar(300), req.body.LinkOkladki)
       .query('INSERT INTO Piosenka VALUES (@Tytul ,@CzasTrwania, @Wykonawca, @Kategoria, @KrajPochodzenia, @DataDodania, @LinkOkladki)')

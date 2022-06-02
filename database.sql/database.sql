@@ -1,13 +1,13 @@
 USE master
 GO
 
-DROP DATABASE IF EXISTS magazyn2022
+DROP DATABASE IF EXISTS Projekt
 GO
 
-CREATE DATABASE magazyn2022
+CREATE DATABASE Projekt
 GO
 
-USE magazyn2022
+USE Projekt
 GO
 
 IF NOT EXISTS (SELECT name  
@@ -24,47 +24,6 @@ GO
 EXEC sp_addrolemember 'db_datawriter', 'app'
 EXEC sp_addrolemember 'db_datareader', 'app'
 
-CREATE TABLE Uzytkownicy (
-    Login VARCHAR(50) PRIMARY KEY,
-    Haslo VARCHAR(50) NOT NULL CHECK(LEN(Haslo) >= 4)
-)
-
-INSERT INTO Uzytkownicy VALUES
-('admin', 'admin123')
-
-CREATE TABLE Produkty (
-    Id INT PRIMARY KEY IDENTITY,
-    Nazwa VARCHAR(50) NOT NULL,
-    Kategoria VARCHAR(50) NOT NULL CHECK (Kategoria IN ('Sport', 'Zabawki', 'Ubrania')),
-    Ilosc SMALLINT NOT NULL CHECK (Ilosc > 0),
-    Cena MONEY NOT NULL CHECK (Cena > 0)
-)
-
-SET IDENTITY_INSERT Produkty ON
-
-INSERT INTO Produkty (Id, Nazwa, Kategoria, Ilosc, Cena) VALUES
-(1, 'Rower', 'Sport', 10, 1000),
-(2, 'Pluszowy miś', 'Zabawki', 40, 50),
-(3, 'Koń na biegunach', 'Zabawki', 2, 200),
-(4, 'Spodnie', 'Ubrania', 16, 99.99),
-(5, 'Sandały', 'Ubrania', 21, 78.55),
-(6, 'Rakieta tenisowa', 'Sport', 3, 250)
-
-SET IDENTITY_INSERT Produkty OFF
-
-USE master
-GO
-
-USE master
-GO
-
-DROP DATABASE IF EXISTS Projekt
-GO
-
-CREATE DATABASE Projekt
-GO
-
-USE Projekt
 GO
 
 CREATE TABLE Uzytkownik (
@@ -113,16 +72,15 @@ INSERT INTO Piosenka
 VALUES
 ('I need you','3:00','NF','POP','Wielka Brytania','2022-01-18','URL okładki'),
 ('Libe','3:00','Sido','ROCK','Niemcy','2022-01-18','URL okładki'),
-('Freaks','2:00','Surf Curse','ROCK','Anglia','2022-01-18','URL okładki'),
-('Big City Life','4:00','Mattafix','RAP','Ameryka','2022-01-18','URL okładki'),
-('Nic a nic','3:00','KMS','RAP','Polska','2022-01-18','URL okładki'),
+('Freaks','2:00','Surf Curse','ROCK','Anglia','2022-01-18','https://cdns-images.dzcdn.net/images/cover/5aac59ef604ec29937df77577ddf48ec/500x500.jpg'),
+('Big City Life','4:00','Mattafix','RAP','Ameryka','2022-01-18','https://m.media-amazon.com/images/I/51GaMD5BWWL.jpg'),
+('Nic a nic','3:00','KMS','RAP','Polska','2022-01-18','https://yt3.ggpht.com/ytc/AKedOLQFygCY5kz-l80q7e9qeWYn0X-hg2-r8Q0zWuSDzQ=s900-c-k-c0x00ffffff-no-rj'),
 ('Melodia','2:00','Sanah','POP','Polska','2022-01-18','URL okładki'),
-('Lie','4:00', 'NF','Trap','Ameryka','2022-01-18','URL okładki'),
-('If You Want Love','3:00', 'NF','Trap','Ameryka','2022-01-18','URL okładki'),
+('Lie','4:00', 'NF','Trap','Ameryka','2022-01-18','URL okłądki'),
+('If You Want Love','3:00', 'NF','Trap','Ameryka','2022-01-18','URL okkładki'),
 ('Paralyzed','4:00', 'NF','Trap','Ameryka','2022-01-18','URL okładki'),
-('Let you down','3:00', 'NF','Trap','Ameryka','2022-01-18','URL okładki'),
-('Libe','4:00','Sido','Rock','Niemcy','2022-01-18','URL okładki'),
-('Freaks','4:00','Surf Curse','Rock','USA','2022-01-18','URL okładki'),
+('Let you down','3:00', 'NF','Trap','Ameryka','2022-01-18','URL okłądki'),
+('Freaks','4:00','Surf Curse','Rock','USA','2022-01-18','https://cdns-images.dzcdn.net/images/cover/5aac59ef604ec29937df77577ddf48ec/500x500.jpg'),
 ('Nichts ohne Dich','4:00', 'Nzola', 'Pop','Niemcy','2022-01-19','URL okładki'),
 ('Ich libe mich','5:00', 'Nzola', 'Pop','Niemcy','2022-01-19','URL okładki'),
 ('Uberall','4:00', 'Celine', 'Pop','Niemcy','2022-01-19','URL okładki'),
@@ -134,12 +92,12 @@ VALUES
 ('I Want You Back','3:00','The Jackson 5','Pop','Ameryka','2022-01-19','URL okładki'),
 ('lonely','4:00','Machine Gun Kelly','Rock','Ameryka','2022-01-19','URL okładki'),
 ('my ex"s best friend','3:00','Machine Gun Kelly','Rock','Ameryka','2022-01-19','URL okładki'),
-('parents','3:00','YUNGBLUD','Rock','Ameryka','2022-01-19','URL okładki'),
-('Kill Somebody','3:00','YUNGBLUD','Rock','Ameryka','2022-01-19','URL okładki'),
-('Medication','2:00','YUNGBLUD','Rock','Ameryka','2022-01-19','URL okładki'),
-('Mars','3:00','YUNGBLUD','Rock','Ameryka','2022-01-19','URL okładki'),
-('Zalatani','4:00','Sarius','Rap','Polska','2022-01-19','URL okładki'),
-('Nie Widać Po Mnie','4:00','Sarius','Rap','Polska','2022-01-19','URL okładki'),
-('Powiedział mi ktoś?','4:00','Sarius','Rap','Polska','2022-01-19','URL okładki'),
-('Usta','3:00','Przyłu','Trap','Polska','2022-01-19','URL okładki'),
-('Bedzie lepiej','3:00','Tymek','Trap','Polska','2022-01-19','URL okładki')
+('parents','3:00','YUNGBLUD','Rock','Ameryka','2022-01-19','https://images.genius.com/2c24afdaee2107b0f3c67657bf73c096.1000x1000x1.jpg'),
+('Kill Somebody','3:00','YUNGBLUD','Rock','Ameryka','2022-01-19','https://images.genius.com/2c24afdaee2107b0f3c67657bf73c096.1000x1000x1.jpg'),
+('Medication','2:00','YUNGBLUD','Rock','Ameryka','2022-01-19','https://images.genius.com/2c24afdaee2107b0f3c67657bf73c096.1000x1000x1.jpg'),
+('Mars','3:00','YUNGBLUD','Rock','Ameryka','2022-01-19','https://images.genius.com/2c24afdaee2107b0f3c67657bf73c096.1000x1000x1.jpg'),
+('Zalatani','4:00','Sarius','Rap','Polska','2022-01-19','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7XtUfBBRZoiHgzugHLhXOIHZUoK9U2sy0Vw&usqp=CAU'),
+('Nie Widać Po Mnie','4:00','Sarius','Rap','Polska','2022-01-19','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7XtUfBBRZoiHgzugHLhXOIHZUoK9U2sy0Vw&usqp=CAU'),
+('Powiedział mi ktoś?','4:00','Sarius','Rap','Polska','2022-01-19','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7XtUfBBRZoiHgzugHLhXOIHZUoK9U2sy0Vw&usqp=CAU'),
+('Usta','3:00','Przyłu','Trap','Polska','2022-01-19','https://ecsmedia.pl/c/juniper-w-iext58901693.jpg'),
+('Bedzie lepiej','3:00','Tymek','Trap','Polska','2022-01-19','https://cdn.newonce.me/uploads/images/4747/schema_meta_data_tymekfit.jpg')

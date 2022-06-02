@@ -3,21 +3,24 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="btn btn-outline-primary" aria-current="page" href="/new-user">Nowy użytkownik</a>
+          <a class="btn btn-outline-primary" aria-current="page" href="/index">Lista piosenek</a>
+          <a class="btn btn-outline-primary" aria-current="page" href="/Register">Nowy użytkownik</a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
+
 <table class="table">
     <thead>
         <tr>
             <th>Id</th>
             <th>Imie</th>
+            <th>Nazwisko</th>
             <th>Login</th>
-            <th>Hasło</th>
-            <th>Umowa</th>
+            <th>Haslo</th>
             <th>Email</th>
+            <th>Umowa</th>
             <th></th>
         </tr>
     </thead>
@@ -26,12 +29,13 @@
         <tr>
             <td>{{this.Id}}</td>
             <td>{{this.Imie}}</td>
+            <td>{{this.Nazwisko}}</td>
             <td>{{this.Login}}</td>
             <td>{{this.Haslo}}</td>
-            <td>{{this.Umowa}}</td>
             <td>{{this.Email}}</td>
+            <td>{{this.Umowa}}</td>
             <td>
-                <form action="songs/{{this.Id}}/delete" method="POST">
+                <form action="user/{{this.Id}}/delete" method="POST">
                   <button type="submit" class="btn btn-sm btn-outlince-danger">&times;</button>
                 </form>
             </td>

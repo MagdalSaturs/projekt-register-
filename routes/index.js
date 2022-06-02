@@ -11,7 +11,10 @@ async function showSongs(req, res) {
     res.redirect('/login')
     return;
   }
-
+  if (req.session.userLogin = 'admin') {
+    res.redirect('/admin')
+    return;
+  }
   try {
     const dbRequest = await request()
     let result;
@@ -88,7 +91,7 @@ async function deleteProduct(req, res) {
 
   res.message = `Usunięto piosenke o id ${req.params.id}`;
 
-    showSongs(req, res)
+    res.redirect("/")
 }
 
 async function showLoginForm(req, res) {
@@ -125,59 +128,23 @@ function logout(req, res) {
 }
 
 async function showPeople(req, res) {
-  let products = []
-
+  let users = []
   try {
     const dbRequest = await request()
     let result;
-
-    if (req.query.umowa) {
-      result = await dbRequest
-        .input('umowa', sql.VarChar(3), req.query.Umowa)
-        .query('SELECT * FROM Uzytkownik')
-    } else {
-      result = await dbRequest.query('SELECT * FROM Uzytkownik')
-    }
-
-    songs = result.recordset
-  } catch (err) {
-    console.error('Nie udało się pobrać użytkownika', err)
-  }
-
-  res.render('index', { 
-    title: 'Lista Uzytkowników',  
-    umowa: req.query.umowa,
-    userLogin: req.session?.userLogin
-   })
-}
-
-async function user(req, res) {
-
-  try {
-    const dbRequest = await request()
-
-    const result = await dbRequest
-      .input('Admin', sql.VarChar(3), 'NIE')
-      .input('Imie', sql.VarChar(25), imie)
-      .input('Nazwisko', sql.VarChar(25), nazwisko)
-      .input('Login', sql.VarChar(25), login)
-      .input('Haslo', sql.VarChar(25), haslo)
-      .input('Email', sql.VarChar(25), email)
-      .input('Umowa', sql.VarChar(25), umowa)
-      .query('INSERT INTO Uzytkownik VALUES (@Admin, @Imie, @Nazwisko, @Login, @Haslo, @Umowa, @Email, DEFAULT, DEFAULT)'
-    )
   
-    if (result.rowsAffected[0] === 1) {
-      req.session.userLogin = login;
-      showSongs(req, res);
-    } else {
-      res.render('Register', {title: 'Stwórz konto', error: 'Założenie konta się nie powiedło'})
-    }
+    result = await dbRequest
+      .query('SELECT * FROM Uzytkownik')
+  
+    users = result.recordset
   } catch (err) {
-    console.error(err);
-    res.render('Register', {title: 'Logownie', error: 'Założenie konta się nie powiedło'})
+    console.error('Nie udało się załadować użytkowników', err)
   }
-
+  res.render('Uzytkownik', { 
+    title: 'Lista użytkowników', 
+    users: users, 
+    message: res.message
+   })
 }
 
 
@@ -215,6 +182,10 @@ async function register(req, res) {
 
 }
 
+async function admin(req, res) {
+  res.render('admin', { title: 'Admin' })
+}
+
 router.get('/', showSongs);
 router.get('/new-song', showNewProductForm);
 router.post('/new-song', addNewProduct);
@@ -223,8 +194,9 @@ router.get('/login', showLoginForm);
 router.post('/login', login);
 router.post('/logout', logout);
 router.get('/Uzytkownik', showPeople);
-router.post('/Uzytkownik', user);
 router.get('/Register', showRegisterForm);
 router.post('/Register', register);
+router.get('/admin', admin);
 
+router.get('/UzytkownicyLista', showPeople);
 module.exports = router;

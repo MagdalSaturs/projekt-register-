@@ -124,48 +124,23 @@ function logout(req, res) {
 }
 
 async function showPeople(req, res) {
-  if (req.session.userLogin = 'admin') {
-    try {
-      const dbRequest = await request()
-      let result;
-  
-      result = await dbRequest
-        .query('SELECT * FROM Uzytkownik')
-  
-      songs = result.recordset
-    } catch (err) {
-      console.error('Nie udało się załadować użytkowników', err)
-    }
-  }
-}
-
-async function user(req, res) {
-
+  let users = []
   try {
     const dbRequest = await request()
-
-    const result = await dbRequest
-      .input('Admin', sql.VarChar(3), 'NIE')
-      .input('Imie', sql.VarChar(25), imie)
-      .input('Nazwisko', sql.VarChar(25), nazwisko)
-      .input('Login', sql.VarChar(25), login)
-      .input('Haslo', sql.VarChar(25), haslo)
-      .input('Email', sql.VarChar(25), email)
-      .input('Umowa', sql.VarChar(25), umowa)
-      .query('INSERT INTO Uzytkownik VALUES (@Admin, @Imie, @Nazwisko, @Login, @Haslo, @Umowa, @Email, DEFAULT, DEFAULT)'
-    )
+    let result;
   
-    if (result.rowsAffected[0] === 1) {
-      req.session.userLogin = login;
-      showSongs(req, res);
-    } else {
-      res.render('Register', {title: 'Stwórz konto', error: 'Założenie konta się nie powiedło'})
-    }
+    result = await dbRequest
+      .query('SELECT * FROM Uzytkownik')
+  
+    users = result.recordset
   } catch (err) {
-    console.error(err);
-    res.render('Register', {title: 'Logownie', error: 'Założenie konta się nie powiedło'})
+    console.error('Nie udało się załadować użytkowników', err)
   }
-
+  res.render('Uzytkownik', { 
+    title: 'Lista użytkowników', 
+    users: users, 
+    message: res.message
+   })
 }
 
 

@@ -9,17 +9,6 @@
     </div>
   </div>
 </nav>
-
-    <div class="mb-3">
-        <label for="cena" class="form-label">Hasło</label>
-        <input type="password" class="form-control" name="password" id="password" required>
-    </div>
-
-    <div class="text-center mb-3">
-        <button class="btn btn-lg btn-primary">Zaloguj</button>
-    </div>
-    <div class="text-center">
-</form>
 <table class="table">
     <thead>
         <tr>
@@ -33,7 +22,7 @@
         </tr>
     </thead>
     <tbody>
-        {{#each user}}
+        {{#each users}}
         <tr>
             <td>{{this.Id}}</td>
             <td>{{this.Imie}}</td>

@@ -188,5 +188,5 @@ router.post('/logout', logout);
 router.get('/Uzytkownik', showPeople);
 router.get('/Register', showRegisterForm);
 router.post('/Register', register);
-
+router.get('/UzytkownicyLista', showPeople);
 module.exports = router;

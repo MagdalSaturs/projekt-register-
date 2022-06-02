@@ -11,7 +11,10 @@ async function showSongs(req, res) {
     res.redirect('/login')
     return;
   }
-
+  if (req.session.userLogin = 'admin') {
+    res.redirect('/admin')
+    return;
+  }
   try {
     const dbRequest = await request()
     let result;
@@ -178,6 +181,10 @@ async function register(req, res) {
 
 }
 
+async function admin(req, res) {
+  res.render('admin', { title: 'Admin' })
+}
+
 router.get('/', showSongs);
 router.get('/new-song', showNewProductForm);
 router.post('/new-song', addNewProduct);
@@ -188,5 +195,6 @@ router.post('/logout', logout);
 router.get('/Uzytkownik', showPeople);
 router.get('/Register', showRegisterForm);
 router.post('/Register', register);
+router.get('/admin', admin);
 
 module.exports = router;

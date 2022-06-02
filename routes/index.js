@@ -61,9 +61,10 @@ async function addNewProduct(req, res, next) {
       .input('CzasTrwania', sql.Time, req.body.CzasTrwania)
       .input('Wykonawca', sql.VarChar(30), req.body.Wykonawca)
       .input('Kategoria', sql.VarChar(15), req.body.kategoria)
-      .input('KrajPochodzenia', sql.sql.VarChar(30), parseFloat(req.body.KrajPochodzenia))
+      .input('KrajPochodzenia', sql.VarChar(30), parseFloat(req.body.KrajPochodzenia))
       .input('DataDodania', sql.Date, parseInt(req.body.DataDodania))
-      .query('INSERT INTO Produkty VALUES (@Tytul ,@CzasTrwania, @Wykonawca, @Kategoria, @KrajPochodzenia, @DataDodania)')
+      .input('LinkOkladki', sql.VarChar(300), req.body.LinkOkladki)
+      .query('INSERT INTO Piosenka VALUES (@Tytul ,@CzasTrwania, @Wykonawca, @Kategoria, @KrajPochodzenia, @DataDodania, @LinkOkladki)')
 
     res.message = 'Dodano nową piosenke'
   } catch (err) {
@@ -80,7 +81,7 @@ async function deleteProduct(req, res) {
 
     await dbRequest
       .input('Id', sql.INT, req.params.id)
-      .query('DELETE FROM Piosenak WHERE Id = @Id')
+      .query('DELETE FROM Piosenka WHERE Id = @Id')
   } catch (err) {
     console.error('Nie udało się usunąć piosenki', err)
   }

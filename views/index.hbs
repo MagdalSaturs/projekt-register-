@@ -45,7 +45,10 @@
         {{#each songs}}
         <tr>
             <td>{{this.Id}}</td>
-            <td>{{this.Tytul}}</td>
+            <td>{{this.Tytul}}   
+
+              <img src="{{this.LinkOkladki}}" alt="">
+            </td>
             <td>{{this.CzasTrwania}}</td>
             <td>{{this.Wykonawca}}</td>
             <td>{{this.KrajPochodzenia}}</td>

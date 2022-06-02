@@ -11,7 +11,7 @@ async function showSongs(req, res) {
     res.redirect('/login')
     return;
   }
-  if (req.session.userLogin = 'admin') {
+  if (req.session.userLogin === 'admin') {
     res.redirect('/admin')
     return;
   }
@@ -183,7 +183,11 @@ async function register(req, res) {
 }
 
 async function admin(req, res) {
-  res.render('admin', { title: 'Admin' })
+  res.render('admin', { title: 'Admin' }) 
+}
+
+async function piosenkiAdmin(req, res) {
+  res.render('piosenki-admin', { title: 'Piosenki | Admin' })
 }
 
 router.get('/', showSongs);
@@ -197,6 +201,8 @@ router.get('/Uzytkownik', showPeople);
 router.get('/Register', showRegisterForm);
 router.post('/Register', register);
 router.get('/admin', admin);
+router.get('/piosenki-admin', piosenkiAdmin);
+router.post('/piosenki-admin', adminPiosenki);
 
 router.get('/UzytkownicyLista', showPeople);
 module.exports = router;

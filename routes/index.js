@@ -80,7 +80,7 @@ async function deleteProduct(req, res) {
 
     await dbRequest
       .input('Id', sql.INT, req.params.id)
-      .query('DELETE FROM Piosenak WHERE Id = @Id-')
+      .query('DELETE FROM Piosenak WHERE Id = @Id')
   } catch (err) {
     console.error('Nie udało się usunąć piosenki', err)
   }
@@ -91,7 +91,7 @@ async function deleteProduct(req, res) {
 }
 
 async function showLoginForm(req, res) {
-  res.render('Uzytkownik', { title: 'Logowanie' })
+  res.render('login', { title: 'Logowanie' })
 }
 
 async function login(req, res) {
@@ -133,7 +133,7 @@ async function showPeople(req, res) {
     if (req.query.umowa) {
       result = await dbRequest
         .input('umowa', sql.VarChar(3), req.query.Umowa)
-        .query('SELECT * FROM Uzytkownik WHERE Umowa IS LIKE Nie')
+        .query('SELECT * FROM Uzytkownik')
     } else {
       result = await dbRequest.query('SELECT * FROM Uzytkownik')
     }
@@ -147,7 +147,7 @@ async function showPeople(req, res) {
     title: 'Lista Uzytkowników',  
     umowa: req.query.umowa,
     userLogin: req.session?.userLogin
-   })``
+   })
 }
 
 async function showRegisterForm(req, res) {

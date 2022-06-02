@@ -1,28 +1,42 @@
-<form action="" method="POST">
-
-     <div class="mb-3">
-        <label for="ilosc" class="form-label">Login</label>
-        <input type="text" class="form-control" name="login" id="login" required>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="btn btn-outline-primary" aria-current="page" href="/new-song">Nowa piosenka</a>
+        </li>
+      </ul>
     </div>
+  </div>
+</nav>
 
-    <div class="mb-3">
-        <label for="cena" class="form-label">Hasło</label>
-        <input type="text" class="form-control" name="password" id="password" required>
-    </div>
-
-
-    <div class="mb-5">
-        <label for="umowa" class="form-label">Umowa</label>
-        <select class="form-control" name="umowa" id="umowa">
-            <option value="yes">Tak</option>
-            <option value="no">Nie</option>
-        </select>
-    </div>
-
-    <div class="text-center mb-3">
-        <button class="btn btn-lg btn-primary">Dodaj</button>
-    </div>
-    <div class="text-center">
-        <a href="/">Powrót</a>
-    </div>
-</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Tytuł</th>
+            <th>Czas trwania</th>
+            <th>Wykonawca</th>
+            <th>Kraj pochodzenia</th>
+            <th>Data dodania</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each songs}}
+        <tr>
+            <td>{{this.Id}}</td>
+            <td>{{this.Tytul}}</td>
+            <td>{{this.CzasTrwania}}</td>
+            <td>{{this.Wykonawca}}</td>
+            <td>{{this.KrajPochodzenia}}</td>
+            <td>{{this.DataDodania}}</td>
+            <td>
+                <form action="songs/{{this.Id}}/delete" method="POST">
+                  <button type="submit" class="btn btn-sm btn-outlince-danger">&times;</button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

@@ -91,7 +91,7 @@ async function deleteProduct(req, res) {
 }
 
 async function showLoginForm(req, res) {
-  res.render('Uzytkownik', { title: 'Logowanie' })
+  res.render('login', { title: 'Logowanie' })
 }
 
 async function login(req, res) {
@@ -124,31 +124,25 @@ function logout(req, res) {
 }
 
 async function showPeople(req, res) {
-  let products = []
-
+  let users = []
   try {
     const dbRequest = await request()
     let result;
-
-    if (req.query.umowa) {
-      result = await dbRequest
-        .input('umowa', sql.VarChar(3), req.query.Umowa)
-        .query('SELECT * FROM Uzytkownik WHERE Umowa IS LIKE Nie')
-    } else {
-      result = await dbRequest.query('SELECT * FROM Uzytkownik')
-    }
-
-    songs = result.recordset
+  
+    result = await dbRequest
+      .query('SELECT * FROM Uzytkownik')
+  
+    users = result.recordset
   } catch (err) {
-    console.error('Nie udało się pobrać użytkownika', err)
+    console.error('Nie udało się załadować użytkowników', err)
   }
-
-  res.render('index', { 
-    title: 'Lista Uzytkowników',  
-    umowa: req.query.umowa,
-    userLogin: req.session?.userLogin
-   })``
+  res.render('Uzytkownik', { 
+    title: 'Lista użytkowników', 
+    users: users, 
+    message: res.message
+   })
 }
+
 
 async function showRegisterForm(req, res) {
   res.render('Register', { title: 'Rejestracja' })

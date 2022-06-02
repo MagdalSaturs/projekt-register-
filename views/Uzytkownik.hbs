@@ -1,28 +1,41 @@
-<form action="" method="POST">
-
-     <div class="mb-3">
-        <label for="ilosc" class="form-label">Login</label>
-        <input type="text" class="form-control" name="login" id="login" required>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="btn btn-outline-primary" aria-current="page" href="/new-user">Nowy użytkownik</a>
+        </li>
+      </ul>
     </div>
-
-    <div class="mb-3">
-        <label for="cena" class="form-label">Hasło</label>
-        <input type="text" class="form-control" name="password" id="password" required>
-    </div>
-
-
-    <div class="mb-5">
-        <label for="umowa" class="form-label">Umowa</label>
-        <select class="form-control" name="umowa" id="umowa">
-            <option value="yes">Tak</option>
-            <option value="no">Nie</option>
-        </select>
-    </div>
-
-    <div class="text-center mb-3">
-        <button class="btn btn-lg btn-primary">Dodaj</button>
-    </div>
-    <div class="text-center">
-        <a href="/">Powrót</a>
-    </div>
-</form>
+  </div>
+</nav>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Imie</th>
+            <th>Login</th>
+            <th>Hasło</th>
+            <th>Umowa</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each users}}
+        <tr>
+            <td>{{this.Id}}</td>
+            <td>{{this.Imie}}</td>
+            <td>{{this.Login}}</td>
+            <td>{{this.Haslo}}</td>
+            <td>{{this.Umowa}}</td>
+            <td>{{this.Email}}</td>
+            <td>
+                <form action="songs/{{this.Id}}/delete" method="POST">
+                  <button type="submit" class="btn btn-sm btn-outlince-danger">&times;</button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

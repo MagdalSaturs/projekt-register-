@@ -63,7 +63,7 @@ async function addNewProduct(req, res, next) {
       .input('Kategoria', sql.VarChar(15), req.body.kategoria)
       .input('KrajPochodzenia', sql.sql.VarChar(30), parseFloat(req.body.KrajPochodzenia))
       .input('DataDodania', sql.Date, parseInt(req.body.DataDodania))
-      .query('INSERT INTO Produkty VALUES (@Tytul ,@CzasTrwania, @Wykonawca, @Kategoria, @KrajPochodzenia, @DataDodania)')
+      .query("INSERT INTO Produkty VALUES (@Tytul ,@CzasTrwania, @Wykonawca, @Kategoria, @KrajPochodzenia, @DataDodania, 'https://3.bp.blogspot.com/-u3msYFb5xfs/V4TmYXpBNfI/AAAAAAAAACk/gzrwUwz8ziMbvcyZBlX-BvlYjI-vM2UIACKgB/s1600/i-see-fire.jpg')")
 
     res.message = 'Dodano nową piosenke'
   } catch (err) {

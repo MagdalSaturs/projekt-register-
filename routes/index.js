@@ -80,7 +80,7 @@ async function deleteProduct(req, res) {
 
     await dbRequest
       .input('Id', sql.INT, req.params.id)
-      .query('DELETE FROM Piosenak WHERE Id = @Id-')
+      .query('DELETE FROM Piosenak WHERE Id = @Id')
   } catch (err) {
     console.error('Nie udało się usunąć piosenki', err)
   }
@@ -91,7 +91,7 @@ async function deleteProduct(req, res) {
 }
 
 async function showLoginForm(req, res) {
-  res.render('Uzytkownik', { title: 'Logowanie' })
+  res.render('login', { title: 'Logowanie' })
 }
 
 async function login(req, res) {
@@ -133,7 +133,7 @@ async function showPeople(req, res) {
     if (req.query.umowa) {
       result = await dbRequest
         .input('umowa', sql.VarChar(3), req.query.Umowa)
-        .query('SELECT * FROM Uzytkownik WHERE Umowa IS LIKE Nie')
+        .query('SELECT * FROM Uzytkownik')
     } else {
       result = await dbRequest.query('SELECT * FROM Uzytkownik')
     }
@@ -147,8 +147,38 @@ async function showPeople(req, res) {
     title: 'Lista Uzytkowników',  
     umowa: req.query.umowa,
     userLogin: req.session?.userLogin
-   })``
+   })
 }
+
+async function user(req, res) {
+
+  try {
+    const dbRequest = await request()
+
+    const result = await dbRequest
+      .input('Admin', sql.VarChar(3), 'NIE')
+      .input('Imie', sql.VarChar(25), imie)
+      .input('Nazwisko', sql.VarChar(25), nazwisko)
+      .input('Login', sql.VarChar(25), login)
+      .input('Haslo', sql.VarChar(25), haslo)
+      .input('Email', sql.VarChar(25), email)
+      .input('Umowa', sql.VarChar(25), umowa)
+      .query('INSERT INTO Uzytkownik VALUES (@Admin, @Imie, @Nazwisko, @Login, @Haslo, @Umowa, @Email, DEFAULT, DEFAULT)'
+    )
+  
+    if (result.rowsAffected[0] === 1) {
+      req.session.userLogin = login;
+      showSongs(req, res);
+    } else {
+      res.render('Register', {title: 'Stwórz konto', error: 'Założenie konta się nie powiedło'})
+    }
+  } catch (err) {
+    console.error(err);
+    res.render('Register', {title: 'Logownie', error: 'Założenie konta się nie powiedło'})
+  }
+
+}
+
 
 async function showRegisterForm(req, res) {
   res.render('Register', { title: 'Rejestracja' })
@@ -192,6 +222,7 @@ router.get('/login', showLoginForm);
 router.post('/login', login);
 router.post('/logout', logout);
 router.get('/Uzytkownik', showPeople);
+router.post('/Uzytkownik', user);
 router.get('/Register', showRegisterForm);
 router.post('/Register', register);
 

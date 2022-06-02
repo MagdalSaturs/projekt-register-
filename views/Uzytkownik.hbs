@@ -3,7 +3,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="btn btn-outline-primary" aria-current="page" href="/new-song">Nowa piosenka</a>
+          <a class="btn btn-outline-primary" aria-current="page" href="/new-song">Nowy użytkownik</a>
         </li>
       </ul>
     </div>
@@ -14,23 +14,23 @@
     <thead>
         <tr>
             <th>Id</th>
-            <th>Tytuł</th>
-            <th>Czas trwania</th>
-            <th>Wykonawca</th>
-            <th>Kraj pochodzenia</th>
-            <th>Data dodania</th>
+            <th>Imie</th>
+            <th>Login</th>
+            <th>Hasło</th>
+            <th>Umowa</th>
+            <th>Email</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        {{#each songs}}
+        {{#each user}}
         <tr>
             <td>{{this.Id}}</td>
-            <td>{{this.Tytul}}</td>
-            <td>{{this.CzasTrwania}}</td>
-            <td>{{this.Wykonawca}}</td>
-            <td>{{this.KrajPochodzenia}}</td>
-            <td>{{this.DataDodania}}</td>
+            <td>{{this.Imie}}</td>
+            <td>{{this.Login}}</td>
+            <td>{{this.Haslo}}</td>
+            <td>{{this.Umowa}}</td>
+            <td>{{this.Email}}</td>
             <td>
                 <form action="songs/{{this.Id}}/delete" method="POST">
                   <button type="submit" class="btn btn-sm btn-outlince-danger">&times;</button>

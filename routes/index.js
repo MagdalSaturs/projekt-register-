@@ -150,6 +150,36 @@ async function showPeople(req, res) {
    })
 }
 
+async function user(req, res) {
+
+  try {
+    const dbRequest = await request()
+
+    const result = await dbRequest
+      .input('Admin', sql.VarChar(3), 'NIE')
+      .input('Imie', sql.VarChar(25), imie)
+      .input('Nazwisko', sql.VarChar(25), nazwisko)
+      .input('Login', sql.VarChar(25), login)
+      .input('Haslo', sql.VarChar(25), haslo)
+      .input('Email', sql.VarChar(25), email)
+      .input('Umowa', sql.VarChar(25), umowa)
+      .query('INSERT INTO Uzytkownik VALUES (@Admin, @Imie, @Nazwisko, @Login, @Haslo, @Umowa, @Email, DEFAULT, DEFAULT)'
+    )
+  
+    if (result.rowsAffected[0] === 1) {
+      req.session.userLogin = login;
+      showSongs(req, res);
+    } else {
+      res.render('Register', {title: 'Stwórz konto', error: 'Założenie konta się nie powiedło'})
+    }
+  } catch (err) {
+    console.error(err);
+    res.render('Register', {title: 'Logownie', error: 'Założenie konta się nie powiedło'})
+  }
+
+}
+
+
 async function showRegisterForm(req, res) {
   res.render('Register', { title: 'Rejestracja' })
 }
@@ -192,6 +222,7 @@ router.get('/login', showLoginForm);
 router.post('/login', login);
 router.post('/logout', logout);
 router.get('/Uzytkownik', showPeople);
+router.post('/Uzytkownik', user);
 router.get('/Register', showRegisterForm);
 router.post('/Register', register);
 

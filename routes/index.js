@@ -200,10 +200,9 @@ async function piosenkiAdmin(req, res) {
   }
 
   res.render('piosenki-admin', { 
-    title: 'Lista piosenek', 
+    title: 'Lista piosenek | Admin', 
     songs: songs, 
     message: res.message, 
-    kategoria: req.query.kategoria,
     userLogin: req.session?.userLogin
    })
 }

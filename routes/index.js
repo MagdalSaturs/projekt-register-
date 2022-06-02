@@ -124,30 +124,19 @@ function logout(req, res) {
 }
 
 async function showPeople(req, res) {
-  let products = []
-
-  try {
-    const dbRequest = await request()
-    let result;
-
-    if (req.query.umowa) {
+  if (req.session.userLogin = 'admin') {
+    try {
+      const dbRequest = await request()
+      let result;
+  
       result = await dbRequest
-        .input('umowa', sql.VarChar(3), req.query.Umowa)
         .query('SELECT * FROM Uzytkownik')
-    } else {
-      result = await dbRequest.query('SELECT * FROM Uzytkownik')
+  
+      songs = result.recordset
+    } catch (err) {
+      console.error('Nie udało się załadować użytkowników', err)
     }
-
-    songs = result.recordset
-  } catch (err) {
-    console.error('Nie udało się pobrać użytkownika', err)
   }
-
-  res.render('index', { 
-    title: 'Lista Uzytkowników',  
-    umowa: req.query.umowa,
-    userLogin: req.session?.userLogin
-   })
 }
 
 async function user(req, res) {
@@ -222,7 +211,6 @@ router.get('/login', showLoginForm);
 router.post('/login', login);
 router.post('/logout', logout);
 router.get('/Uzytkownik', showPeople);
-router.post('/Uzytkownik', user);
 router.get('/Register', showRegisterForm);
 router.post('/Register', register);
 

@@ -80,14 +80,14 @@ async function deleteProduct(req, res) {
 
     await dbRequest
       .input('Id', sql.INT, req.params.id)
-      .query('DELETE FROM Piosenak WHERE Id = @Id-')
+      .query('DELETE FROM Piosenka WHERE Id = @Id')
   } catch (err) {
     console.error('Nie udało się usunąć piosenki', err)
   }
 
   res.message = `Usunięto piosenke o id ${req.params.id}`;
 
-    showSongs(req, res)
+    res.redirect("/")
 }
 
 async function showLoginForm(req, res) {

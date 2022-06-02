@@ -4,6 +4,7 @@
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="btn btn-outline-primary" aria-current="page" href="/new-song">Nowa piosenka</a>
+          <a class="btn btn-outline-primary" aria-current="page" href="/UzytkownicyLista">Lista użytkowników</a>
         </li>
       </ul>
       <form class="d-flex">
@@ -51,7 +52,7 @@
             <td>{{this.KrajPochodzenia}}</td>
             <td>{{this.DataDodania}}</td>
             <td>
-                <form action="songs/{{this.Id}}/delete" method="POST">
+                <form action="song/{{this.Id}}/delete" method="POST">
                   <button type="submit" class="btn btn-sm btn-outlince-danger">&times;</button>
                 </form>
             </td>

@@ -187,40 +187,19 @@ async function admin(req, res) {
 }
 
 async function piosenkiAdmin(req, res) {
-  res.render('piosenki-admin', { title: 'Piosenki | Admin' })
-}
-
-async function adminPiosenki(req, res) {
   let songs = []
   try {
     const dbRequest = await request()
-    let result;
+    let result;  
 
-    
-
-    if (req.query.kategoria?.length > 0 && req.query.kraj?.length > 0) {
-      result = await dbRequest
-        .input('Kategoria', sql.VarChar(15), req.query.kategoria)
-        .input('KrajPochodzenia', sql.VarChar(15), req.query.kraj)
-        .query('SELECT * FROM Piosenka WHERE Kategoria = @Kategoria AND KrajPochodzenia = @KrajPochodzenia')
-    } else if (req.query.kategoria?.length > 0) {
-      result = await dbRequest
-        .input('Kategoria', sql.VarChar(15), req.query.kategoria)
-        .query('SELECT * FROM Piosenka WHERE Kategoria = @Kategoria')
-    } else if (req.query.kraj?.length > 0) {
-      result = await dbRequest
-        .input('KrajPochodzenia', sql.VarChar(15), req.query.kraj)
-        .query('SELECT * FROM Piosenka WHERE KrajPochodzenia = @KrajPochodzenia')
-    } else {
-      result = await dbRequest.query('SELECT * FROM Piosenka')
-    }
-
+    result = await dbRequest
+      .query('SELECT * FROM Piosenka')
     songs = result.recordset
   } catch (err) {
     console.error('Nie udało się pobrać piosenki', err)
   }
 
-  res.render('index', { 
+  res.render('piosenki-admin', { 
     title: 'Lista piosenek', 
     songs: songs, 
     message: res.message, 
@@ -228,6 +207,7 @@ async function adminPiosenki(req, res) {
     userLogin: req.session?.userLogin
    })
 }
+
 
 router.get('/', showSongs);
 router.get('/new-song', showNewProductForm);
@@ -241,7 +221,6 @@ router.get('/Register', showRegisterForm);
 router.post('/Register', register);
 router.get('/admin', admin);
 router.get('/piosenki-admin', piosenkiAdmin);
-router.post('/piosenki-admin', adminPiosenki);
 
 router.get('/UzytkownicyLista', showPeople);
 module.exports = router;

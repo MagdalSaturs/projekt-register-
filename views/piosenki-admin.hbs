@@ -27,14 +27,17 @@
         {{#each songs}}
         <tr>
             <td>{{this.Id}}</td>
-            <td>{{this.Tytul}}</td>
+            <td>
+              <img src="{{this.LinkOkladki}}" alt="" width="100%" height="100%">
+            </td>
+            <td>{{this.Tytul}}
             <td>{{this.Kategoria}}</td>
             <td>{{this.CzasTrwania}}</td>
             <td>{{this.Wykonawca}}</td>
             <td>{{this.KrajPochodzenia}}</td>
             <td>{{this.DataDodania}}</td>
             <td>
-                <form action="songs/{{this.Id}}/delete" method="POST">
+                <form action="song/{{this.Id}}/delete" method="POST">
                   <button type="submit" class="btn btn-sm btn-outlince-danger">&times;</button>
                 </form>
             </td>

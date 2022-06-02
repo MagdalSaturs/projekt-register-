@@ -190,6 +190,45 @@ async function piosenkiAdmin(req, res) {
   res.render('piosenki-admin', { title: 'Piosenki | Admin' })
 }
 
+async function adminPiosenki(req, res) {
+  let songs = []
+  try {
+    const dbRequest = await request()
+    let result;
+
+    
+
+    if (req.query.kategoria?.length > 0 && req.query.kraj?.length > 0) {
+      result = await dbRequest
+        .input('Kategoria', sql.VarChar(15), req.query.kategoria)
+        .input('KrajPochodzenia', sql.VarChar(15), req.query.kraj)
+        .query('SELECT * FROM Piosenka WHERE Kategoria = @Kategoria AND KrajPochodzenia = @KrajPochodzenia')
+    } else if (req.query.kategoria?.length > 0) {
+      result = await dbRequest
+        .input('Kategoria', sql.VarChar(15), req.query.kategoria)
+        .query('SELECT * FROM Piosenka WHERE Kategoria = @Kategoria')
+    } else if (req.query.kraj?.length > 0) {
+      result = await dbRequest
+        .input('KrajPochodzenia', sql.VarChar(15), req.query.kraj)
+        .query('SELECT * FROM Piosenka WHERE KrajPochodzenia = @KrajPochodzenia')
+    } else {
+      result = await dbRequest.query('SELECT * FROM Piosenka')
+    }
+
+    songs = result.recordset
+  } catch (err) {
+    console.error('Nie udało się pobrać piosenki', err)
+  }
+
+  res.render('index', { 
+    title: 'Lista piosenek', 
+    songs: songs, 
+    message: res.message, 
+    kategoria: req.query.kategoria,
+    userLogin: req.session?.userLogin
+   })
+}
+
 router.get('/', showSongs);
 router.get('/new-song', showNewProductForm);
 router.post('/new-song', addNewProduct);

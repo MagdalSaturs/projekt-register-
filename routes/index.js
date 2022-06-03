@@ -261,5 +261,5 @@ router.get('/main', main);
 router.get('/Register-admin', showRegisterFormAdmin);
 router.post('/Register-admin', registerAdmin);
 
-router.get('/UzytkownicyLista', showPeople);
+// router.get('/UzytkownicyLista', showPeople);
 module.exports = router;

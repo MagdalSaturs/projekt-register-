@@ -258,8 +258,8 @@ router.post('/Register', register);
 router.get('/admin', admin);
 router.get('/piosenki-admin', piosenkiAdmin);
 router.get('/main', main);
-router.get('/Register', showRegisterFormAdmin);
-router.post('/Register', registerAdmin);
+router.get('/Register-admin', showRegisterFormAdmin);
+router.post('/Register-admin', registerAdmin);
 
 router.get('/UzytkownicyLista', showPeople);
 module.exports = router;

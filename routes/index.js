@@ -8,7 +8,7 @@ async function showSongs(req, res) {
   let songs = []
 
   if (!req.session || !req.session.userLogin) {
-    res.redirect('/login')
+    res.redirect('/main')
     return;
   }
   if (req.session.userLogin === 'admin') {
@@ -124,7 +124,7 @@ async function login(req, res) {
 function logout(req, res) {
   req.session.destroy();
 
-  res.redirect('/login')
+  res.redirect('/main')
 }
 
 async function showPeople(req, res) {
@@ -207,6 +207,43 @@ async function piosenkiAdmin(req, res) {
    })
 }
 
+async function main(req, res) {
+  res.render('main', { title: 'Strona Główna' })
+}
+
+async function showRegisterFormAdmin(req, res) {
+  res.render('Register-admin', { title: 'Rejestracja' })
+}
+
+async function registerAdmin(req, res) {
+  const {imie, nazwisko, login, haslo, email, umowa} = req.body;
+
+  try {
+    const dbRequest = await request()
+
+    const result = await dbRequest
+      .input('Admin', sql.VarChar(3), 'NIE')
+      .input('Imie', sql.VarChar(25), imie)
+      .input('Nazwisko', sql.VarChar(25), nazwisko)
+      .input('Login', sql.VarChar(25), login)
+      .input('Haslo', sql.VarChar(25), haslo)
+      .input('Email', sql.VarChar(25), email)
+      .input('Umowa', sql.VarChar(25), umowa)
+      .query('INSERT INTO Uzytkownik VALUES (@Admin, @Imie, @Nazwisko, @Login, @Haslo, @Umowa, @Email, DEFAULT, DEFAULT)'
+    )
+  
+    if (result.rowsAffected[0] === 1) {
+      req.session.userLogin = login;
+      showSongs(req, res);
+    } else {
+      res.render('Register', {title: 'Stwórz konto', error: 'Założenie konta się nie powiedło'})
+    }
+  } catch (err) {
+    console.error(err);
+    res.render('Register', {title: 'Logownie', error: 'Założenie konta się nie powiedło'})
+  }
+
+}
 
 router.get('/', showSongs);
 router.get('/new-song', showNewProductForm);
@@ -220,6 +257,9 @@ router.get('/Register', showRegisterForm);
 router.post('/Register', register);
 router.get('/admin', admin);
 router.get('/piosenki-admin', piosenkiAdmin);
+router.get('/main', main);
+router.get('/Register', showRegisterFormAdmin);
+router.post('/Register', registerAdmin);
 
 router.get('/UzytkownicyLista', showPeople);
 module.exports = router;

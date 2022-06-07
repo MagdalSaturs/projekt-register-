@@ -268,6 +268,10 @@ async function showUlubione(req, res) {
   res.render('ulubione', { title: 'Ulubione' })
 }
 
+async function dodajUlubione(req, res) {
+  const {idPiosenki} = req.body;
+}
+
 router.get('/', showSongs);
 router.get('/new-song', showNewProductForm);
 router.post('/new-song', addNewProduct);
@@ -285,7 +289,7 @@ router.get('/Register-admin', showRegisterFormAdmin);
 router.post('/Register-admin', registerAdmin);
 router.post('/users/:id/delete', deleteUser);
 router.get('/ulubione', showUlubione);
-// router.post('/ulubione', ulubione);
+router.post('/ulubione', dodajUlubione);
 
 // router.get('/UzytkownicyLista', showPeople);
 module.exports = router;

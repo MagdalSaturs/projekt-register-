@@ -282,7 +282,7 @@ router.get('/Register-admin', showRegisterFormAdmin);
 router.post('/Register-admin', registerAdmin);
 router.post('/users/:id/delete', deleteUser);
 router.get('/ulubione', showUlubione);
-router.post('/ulubione', ulubione);
+// router.post('/ulubione', ulubione);
 
 // router.get('/UzytkownicyLista', showPeople);
 module.exports = router;

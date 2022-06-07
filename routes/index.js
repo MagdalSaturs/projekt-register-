@@ -242,7 +242,23 @@ async function registerAdmin(req, res) {
     console.error(err);
     res.render('Register', {title: 'Logownie', error: 'Założenie konta się nie powiedło'})
   }
+}
 
+async function deleteUser(req, res) {
+
+  try {
+    const dbRequest = await request()
+
+    await dbRequest
+      .input('Id', sql.INT, req.params.id)
+      .query('DELETE FROM Uzytkownik WHERE Id = @Id')
+  } catch (err) {
+    console.error('Nie udało się usunąć użytkownika', err)
+  }
+
+  res.message = `Usunięto użytkownika o id ${req.params.id}`;
+
+  res.redirect("/Uzytkownik")
 }
 
 router.get('/', showSongs);
@@ -260,6 +276,7 @@ router.get('/piosenki-admin', piosenkiAdmin);
 router.get('/main', main);
 router.get('/Register-admin', showRegisterFormAdmin);
 router.post('/Register-admin', registerAdmin);
+router.post('/users/:id/delete', deleteUser);
 
 // router.get('/UzytkownicyLista', showPeople);
 module.exports = router;

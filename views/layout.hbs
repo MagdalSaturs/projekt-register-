@@ -15,8 +15,6 @@
 
       {{#if userLogin}}
         <div class="navbar-text"> Zalogowany jako: {{userLogin}}</div> <form action="/logout" method="POST"><button type="submit" class="btn btn-outline-primary btn-sm btn-inline">Wyloguj</button></form>
-      {{else}}
-        <a href="/login" class="btn btn-outline-primary btn-sm">Zaloguj</a>
       {{/if}}
 
     </div>

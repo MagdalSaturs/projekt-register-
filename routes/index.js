@@ -261,6 +261,10 @@ async function deleteUser(req, res) {
   res.redirect("/Uzytkownik")
 }
 
+async function showUlubione(req, res) {
+  res.render('ulubione', { title: 'Ulubione' })
+}
+
 router.get('/', showSongs);
 router.get('/new-song', showNewProductForm);
 router.post('/new-song', addNewProduct);
@@ -277,6 +281,8 @@ router.get('/main', main);
 router.get('/Register-admin', showRegisterFormAdmin);
 router.post('/Register-admin', registerAdmin);
 router.post('/users/:id/delete', deleteUser);
+router.get('/ulubione', showUlubione);
+router.post('/ulubione', ulubione);
 
 // router.get('/UzytkownicyLista', showPeople);
 module.exports = router;

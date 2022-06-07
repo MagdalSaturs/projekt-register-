@@ -4,7 +4,6 @@
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="btn btn-outline-primary" aria-current="page" href="/new-song">Nowa piosenka</a>
-           <a class="btn btn-outline-primary" aria-current="page" href="/ulubione">Ulubione piosenki</a>
         </li>
       </ul>
       <form class="d-flex">
@@ -57,11 +56,6 @@
             <td>{{this.CzasTrwania}}</td>
             <td>{{this.KrajPochodzenia}}</td>
             <td>{{this.DataDodania}}</td>
-            <td>
-                <form action="/ulubione" method="POST">
-                  <button type="submit" class="btn btn-sm btn-outline-danger"><img src="http://www.kosmetyka-ziomek.pl/wp-content/uploads/2019/07/serce-jpg-300x272.png" height="50%" width="50%"></button>
-                </form>
-            </td>
         </tr>
         {{/each}}
     </tbody>

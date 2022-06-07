@@ -291,5 +291,4 @@ router.post('/users/:id/delete', deleteUser);
 router.get('/ulubione', showUlubione);
 router.post('/ulubione', dodajUlubione);
 
-// router.get('/UzytkownicyLista', showPeople);
 module.exports = router;

@@ -57,24 +57,26 @@ async function showNewProductForm(req, res) {
 }
 
 async function addNewProduct(req, res, next) { 
-  try {
-    const dbRequest = await request()
-    await dbRequest
-      .input('Tytul', sql.VarChar(30), req.body.Tytul)
-      .input('CzasTrwania', sql.Time, req.body.CzasTrwania)
-      .input('Wykonawca', sql.VarChar(30), req.body.Wykonawca)
-      .input('Kategoria', sql.VarChar(15), req.body.kategoria)
-      .input('KrajPochodzenia', sql.VarChar(30), req.body.KrajPochodzenia)
-      .input('DataDodania', sql.Date, parseInt(req.body.DataDodania))
-      .input('LinkOkladki', sql.VarChar(300), req.body.LinkOkladki)
-      .query('INSERT INTO Piosenka VALUES (@Tytul ,@CzasTrwania, @Wykonawca, @Kategoria, @KrajPochodzenia, @DataDodania, @LinkOkladki)')
-
-    res.message = 'Dodano nową piosenke'
-  } catch (err) {
-    console.error('Nie udało się dodać piosenki', err)
+  if (req.session.userUmowa = "TAK"){
+    try {
+      const dbRequest = await request()
+      await dbRequest
+        .input('Tytul', sql.VarChar(30), req.body.Tytul)
+        .input('CzasTrwania', sql.Time, req.body.CzasTrwania)
+        .input('Wykonawca', sql.VarChar(30), req.body.Wykonawca)
+        .input('Kategoria', sql.VarChar(15), req.body.kategoria)
+        .input('KrajPochodzenia', sql.VarChar(30), req.body.KrajPochodzenia)
+        .input('DataDodania', sql.Date, parseInt(req.body.DataDodania))
+        .input('LinkOkladki', sql.VarChar(300), req.body.LinkOkladki)
+        .query('INSERT INTO Piosenka VALUES (@Tytul ,@CzasTrwania, @Wykonawca, @Kategoria, @KrajPochodzenia, @DataDodania, @LinkOkladki)')
+  
+      res.message = 'Dodano nową piosenke'
+    } catch (err) {
+      console.error('Nie udało się dodać piosenki', err)
+    }
+  
+    showSongs(req, res)
   }
-
-  showSongs(req, res)
 }
 
 async function deleteProduct(req, res) {
@@ -171,6 +173,7 @@ async function register(req, res) {
   
     if (result.rowsAffected[0] === 1) {
       req.session.userLogin = login;
+      req.session.userUmowa = umowa;
       showSongs(req, res);
     } else {
       res.render('Register', {title: 'Stwórz konto', error: 'Założenie konta się nie powiedło'})

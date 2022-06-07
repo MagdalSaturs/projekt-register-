@@ -262,5 +262,4 @@ router.get('/Register-admin', showRegisterFormAdmin);
 router.post('/Register-admin', registerAdmin);
 
 // router.get('/UzytkownicyLista', showPeople);
-//wysyłam zmiany
 module.exports = router;

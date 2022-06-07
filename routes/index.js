@@ -287,5 +287,4 @@ router.post('/users/:id/delete', deleteUser);
 router.get('/ulubione', showUlubione);
 // router.post('/ulubione', ulubione);
 
-// router.get('/UzytkownicyLista', showPeople);
 module.exports = router;

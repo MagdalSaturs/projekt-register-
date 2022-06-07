@@ -28,12 +28,12 @@ GO
 
 CREATE TABLE Uzytkownik (
 	Id INT NOT NULL IDENTITY PRIMARY KEY,
-	Admin VARCHAR(30) CHECK(Admin IN('TAK', 'NIE')) NOT NULL,
+	Admin VARCHAR(30) CHECK(Admin IN('TAK', 'NIE')) NOT NULL DEFAULT('NIE'),
     Imie VARCHAR(25) NOT NULL,
     Nazwisko VARCHAR(25) NOT NULL,
     Login VARCHAR(25) NOT NULL,
     Haslo VARCHAR(25) NOT NULL,
-    Umowa VARCHAR(25) CHECK(Umowa IN('TAK','NIE')) NOT NULL,
+    Umowa VARCHAR(25) CHECK(Umowa IN('TAK','NIE')) NOT NULL DEFAULT('NIE'),
     Email VARCHAR(25) NOT NULL,
     DataRejestracji DATETIME NOT NULL DEFAULT(GETDATE()),
     DataLogowania DATETIME NOT NULL DEFAULT(GETDATE())
@@ -45,7 +45,7 @@ VALUES
 
 CREATE TABLE Playlista (
 	Id INT NOT NULL IDENTITY PRIMARY KEY,
-    Nazwa VARCHAR(100) NOT NULL,
+    Nazwa VARCHAR(100) NOT NULL DEFAULT("Ulubione"),
     Typ VARCHAR(25) CHECK(Typ IN('Publiczna','Prywtna')) NOT NULL,
     DataPublikacji DATETIME NOT NULL DEFAULT(GETDATE()),
     UzytkownicyId INT NOT NULL FOREIGN KEY REFERENCES Uzytkownik(Id)
@@ -54,12 +54,12 @@ CREATE TABLE Playlista (
 CREATE TABLE Piosenka (
     Id INT NOT NULL IDENTITY UNIQUE,
     Tytul VARCHAR(30) NOT NULL CHECK(LEN(Tytul) >= 3),
-    CzasTrwania TIME NOT NULL,
+    CzasTrwania TIME NOT NULL DEFAULT(3),
     Wykonawca VARCHAR(30) NOT NULL CHECK(LEN(Wykonawca) >= 2),
     Kategoria VARCHAR(15) CHECK(Kategoria IN('POP', 'ROCK','RAP', 'Trap')),
     KrajPochodzenia VARCHAR(30) NOT NULL CHECK(LEN(KrajPochodzenia) >= 3),
-    DataDodania DATE NOT NULL,
-    LinkOkladki VARCHAR(300) NOT NULL
+    DataDodania DATE NOT NULL DEFAULT(GETDATE()),
+    LinkOkladki VARCHAR(300) NOT NULL DEFAULT('https://scontent-frt3-1.xx.fbcdn.net/v/t1.18169-9/13417651_774698349333124_3934195859392981271_n.png?_nc_cat=106&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=TvSpBfCcSIMAX-zeEXu&_nc_ht=scontent-frt3-1.xx&oh=00_AT-suA5u4Bh0kQslhC_YtC59ak7GZGmdY8PqGmKarZDrgg&oe=62C63592')
 )
 
 CREATE TABLE PlaylistaPiosenka (

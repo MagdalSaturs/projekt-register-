@@ -62,7 +62,7 @@ async function showNewProductForm(req, res) {
 }
 
 async function addNewProduct(req, res, next) { 
-  if (req.session.userUmowa = "TAK"){
+  if (req.session.userUmowa === "TAK"){
     try {
       const dbRequest = await request()
       await dbRequest
@@ -80,6 +80,8 @@ async function addNewProduct(req, res, next) {
       console.error('Nie udało się dodać piosenki', err)
     }
   
+    showSongs(req, res)
+  }else{
     showSongs(req, res)
   }
 }
@@ -178,7 +180,8 @@ async function register(req, res) {
   
     if (result.rowsAffected[0] === 1) {
       req.session.userLogin = login;
-      req.session.userUmowa = umowa;
+      req.session.userUmowa = umowa
+      ;
       showSongs(req, res);
     } else {
       res.render('Register', {title: 'Stwórz konto', error: 'Założenie konta się nie powiedło'})

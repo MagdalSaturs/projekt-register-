@@ -138,6 +138,11 @@ function logout(req, res) {
 
 async function showPeople(req, res) {
   let users = []
+
+  if (req.query.id?.length > 0){
+    return showUser(req, res)
+  }
+
   try {
     const dbRequest = await request()
     let result;
@@ -154,6 +159,27 @@ async function showPeople(req, res) {
     users: users, 
     message: res.message
   })
+}
+
+async function  showUser(req, res) {
+  let user
+  try {
+    const dbRequest = await request()
+    let result;
+  
+    result = await dbRequest
+      .input('Id', sql.Int, req.query.id)
+      .query('SELECT * FROM Uzytkownik WHERE Id = @Id')
+  
+    user = result.recordset[0]
+  } catch (err) {
+    console.error('Nie udało się załadować użytkowników', err)
+  }
+  res.render('uzytkownik-info', { 
+    title: 'Informacje o użytkowniku', 
+    user: user
+  })
+
 }
 
 async function showPeopleForUser(req, res) {

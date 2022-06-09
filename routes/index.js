@@ -154,6 +154,25 @@ async function showPeople(req, res) {
   })
 }
 
+async function showPeopleForUser(req, res) {
+  let users = []
+  try {
+    const dbRequest = await request()
+    let result;
+  
+    result = await dbRequest
+      .query('SELECT * FROM Uzytkownik')
+  
+    users = result.recordset
+  } catch (err) {
+    console.error('Nie udało się załadować użytkowników', err)
+  }
+  res.render('UzytkownikUser', { 
+    title: 'Lista użytkowników', 
+    users: users, 
+    message: res.message
+  })
+}
 
 async function showRegisterForm(req, res) {
   res.render('Register', { title: 'Rejestracja' })
@@ -286,6 +305,7 @@ router.get('/login', showLoginForm);
 router.post('/login', login);
 router.post('/logout', logout);
 router.get('/Uzytkownik', showPeople);
+router.get('UzytkownikUser', showPeopleForUser);
 router.get('/Register', showRegisterForm);
 router.post('/Register', register);
 router.get('/admin', admin);

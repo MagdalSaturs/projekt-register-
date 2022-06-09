@@ -19,6 +19,7 @@
             <th>Hasło</th>
             <th>Umowa</th>
             <th>Email</th>
+            <th>Informacje</th>
             <th></th>
         </tr>
     </thead>
@@ -31,6 +32,11 @@
             <td>{{this.Haslo}}</td>
             <td>{{this.Umowa}}</td>
             <td>{{this.Email}}</td>
+            <td>
+                <form action="information/{{this.Id}}/user" method="POST">
+                  <button type="submit" class="btn btn-sm btn-outlince-danger">Informacje</button>
+                </form>
+            </td>
             <td>
                 <form action="users/{{this.Id}}/delete" method="POST">
                   <button type="submit" class="btn btn-sm btn-outlince-danger">&times;</button>

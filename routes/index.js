@@ -49,7 +49,7 @@ async function showSongs(req, res) {
     message: res.message, 
     kategoria: req.query.kategoria,
     userLogin: req.session?.userLogin
-   })
+  })
 }
 
 async function showNewProductForm(req, res) {
@@ -146,7 +146,7 @@ async function showPeople(req, res) {
     title: 'Lista użytkowników', 
     users: users, 
     message: res.message
-   })
+  })
 }
 
 
@@ -207,7 +207,7 @@ async function piosenkiAdmin(req, res) {
     songs: songs, 
     message: res.message, 
     userLogin: req.session?.userLogin
-   })
+  })
 }
 
 async function main(req, res) {

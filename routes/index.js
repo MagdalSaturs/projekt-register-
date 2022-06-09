@@ -305,7 +305,7 @@ router.get('/login', showLoginForm);
 router.post('/login', login);
 router.post('/logout', logout);
 router.get('/Uzytkownik', showPeople);
-router.get('UzytkownikUser', showPeopleForUser);
+router.get('/UzytkownikUser', showPeopleForUser);
 router.get('/Register', showRegisterForm);
 router.post('/Register', register);
 router.get('/admin', admin);

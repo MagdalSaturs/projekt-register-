@@ -21,7 +21,7 @@ async function showSongs(req, res) {
 
     
 
-    if (req.query.kategoria?.length > 0 && req.query.kraj?.length > 0) {
+    if (req.query.kategoria?.length > 0 && req.query.kraj?.length > 0 && req.query.Wykonawca?.lenth > 0) {
       result = await dbRequest
         .input('Kategoria', sql.VarChar(15), req.query.kategoria)
         .input('KrajPochodzenia', sql.VarChar(15), req.query.kraj)
@@ -34,7 +34,12 @@ async function showSongs(req, res) {
       result = await dbRequest
         .input('KrajPochodzenia', sql.VarChar(15), req.query.kraj)
         .query('SELECT * FROM Piosenka WHERE KrajPochodzenia = @KrajPochodzenia')
-    } else {
+    } else if (req.query.Wykonawca?.lenth > 0) {
+      result = await dbRequest
+        .input('Wykonawca', sql.VarChar(300), req.query.Wykonawca)
+        .query('SELECT * FROM Piosenka WHERE Wykonawca = @Wykonawca')
+    }
+     else {
       result = await dbRequest.query('SELECT * FROM Piosenka')
     }
 

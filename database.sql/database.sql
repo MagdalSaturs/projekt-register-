@@ -28,12 +28,12 @@ GO
 
 CREATE TABLE Uzytkownik (
 	Id INT NOT NULL IDENTITY PRIMARY KEY,
-	Admin VARCHAR(30) CHECK(Admin IN('TAK', 'NIE')) NOT NULL DEFAULT('NIE'),
+	Admin VARCHAR(30) CHECK(Admin IN('TAK', 'NIE')) NOT NULL,
     Imie VARCHAR(25) NOT NULL,
     Nazwisko VARCHAR(25) NOT NULL,
     Login VARCHAR(25) NOT NULL,
     Haslo VARCHAR(25) NOT NULL,
-    Umowa VARCHAR(25) CHECK(Umowa IN('TAK','NIE')) NOT NULL DEFAULT('NIE'),
+    Umowa VARCHAR(25) CHECK(Umowa IN('TAK','NIE')) NOT NULL,
     Email VARCHAR(25) NOT NULL,
     DataRejestracji DATETIME NOT NULL DEFAULT(GETDATE()),
     DataLogowania DATETIME NOT NULL DEFAULT(GETDATE())
@@ -45,7 +45,7 @@ VALUES
 
 CREATE TABLE Playlista (
 	Id INT NOT NULL IDENTITY PRIMARY KEY,
-    Nazwa VARCHAR(100) NOT NULL DEFAULT("Ulubione"),
+    Nazwa VARCHAR(100) NOT NULL,
     Typ VARCHAR(25) CHECK(Typ IN('Publiczna','Prywtna')) NOT NULL,
     DataPublikacji DATETIME NOT NULL DEFAULT(GETDATE()),
     UzytkownicyId INT NOT NULL FOREIGN KEY REFERENCES Uzytkownik(Id)
@@ -54,12 +54,12 @@ CREATE TABLE Playlista (
 CREATE TABLE Piosenka (
     Id INT NOT NULL IDENTITY UNIQUE,
     Tytul VARCHAR(30) NOT NULL CHECK(LEN(Tytul) >= 3),
-    CzasTrwania TIME NOT NULL DEFAULT(3),
+    CzasTrwania TIME NOT NULL,
     Wykonawca VARCHAR(30) NOT NULL CHECK(LEN(Wykonawca) >= 2),
     Kategoria VARCHAR(15) CHECK(Kategoria IN('POP', 'ROCK','RAP', 'Trap')),
     KrajPochodzenia VARCHAR(30) NOT NULL CHECK(LEN(KrajPochodzenia) >= 3),
-    DataDodania DATE NOT NULL DEFAULT(GETDATE()),
-    LinkOkladki VARCHAR(300) NOT NULL DEFAULT('https://scontent-frt3-1.xx.fbcdn.net/v/t1.18169-9/13417651_774698349333124_3934195859392981271_n.png?_nc_cat=106&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=TvSpBfCcSIMAX-zeEXu&_nc_ht=scontent-frt3-1.xx&oh=00_AT-suA5u4Bh0kQslhC_YtC59ak7GZGmdY8PqGmKarZDrgg&oe=62C63592')
+    DataDodania DATE NOT NULL,
+    LinkOkladki VARCHAR(300) NOT NULL
 )
 
 CREATE TABLE PlaylistaPiosenka (
@@ -70,8 +70,8 @@ CREATE TABLE PlaylistaPiosenka (
 
 INSERT INTO Piosenka
 VALUES
-('I need you','3:00','NF','POP','Wielka Brytania','2022-01-18','https://ecsmedia.pl/c/when-i-grow-up-w-iext54753814.jpgi'),
-('Libe','3:00','Sido','ROCK','Niemcy','2022-01-18','URL okładki'),
+('I need you','3:00','NF','POP','Wielka Brytania',DEFAULT,'https://ecsmedia.pl/c/when-i-grow-up-w-iext54753814.jpg'),
+('Libe','3:00','Sido','ROCK','Niemcy','2022-01-18','https://kolekcjonerrapu.pl/userdata/public/gfx/621/Sido---Blutzbrudaz---Die-Mukke-Zum-Film-cover-okladka.jpg'),
 ('Freaks','2:00','Surf Curse','ROCK','Anglia','2022-01-18','https://cdns-images.dzcdn.net/images/cover/5aac59ef604ec29937df77577ddf48ec/500x500.jpg'),
 ('Big City Life','4:00','Mattafix','RAP','Ameryka','2022-01-18','https://m.media-amazon.com/images/I/51GaMD5BWWL.jpg'),
 ('Nic a nic','3:00','KMS','RAP','Polska','2022-01-18','https://yt3.ggpht.com/ytc/AKedOLQFygCY5kz-l80q7e9qeWYn0X-hg2-r8Q0zWuSDzQ=s900-c-k-c0x00ffffff-no-rj'),

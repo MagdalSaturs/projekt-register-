@@ -34,7 +34,7 @@ async function showSongs(req, res) {
       result = await dbRequest
         .input('KrajPochodzenia', sql.VarChar(15), req.query.kraj)
         .query('SELECT * FROM Piosenka WHERE KrajPochodzenia = @KrajPochodzenia')
-    } else if (req.query.Wykonawca?.lenth > 0) {
+    } else if (req.query.Wykonawca?.length > 0) {
       result = await dbRequest
         .input('Wykonawca', sql.VarChar(300), req.query.Wykonawca)
         .query('SELECT * FROM Piosenka WHERE Wykonawca = @Wykonawca')
@@ -279,6 +279,7 @@ async function showUlubione(req, res) {
 
 async function dodajUlubione(req, res) {
   const {idPiosenki} = req.body;
+  req.session.userLogin
 }
 
 router.get('/', showSongs);

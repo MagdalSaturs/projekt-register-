@@ -324,6 +324,31 @@ async function deleteUser(req, res) {
   res.redirect("/Uzytkownik")
 }
 
+async function ZmianaUmowyTAK(req, res) 
+{try {const dbRequest = await request()
+  await dbRequest.input('Id', sql.INT, req.params.id)
+    .input('Umowa', sql.VarChar(3), 'TAK')
+    .query('Update Uzytkownik set Umowa = @Umowa WHERE Id = @Id')
+} catch (err) 
+{console.error('Nie udało się zmienić umowy użytkownika', err)
+}
+
+res.message = `Zmieniono umowę użytkownika o id ${req.params.id}`;
+
+res.redirect("/Uzytkownik")}
+
+async function ZmianaUmowyNIE(req, res) 
+{try {const dbRequest = await request()
+  await dbRequest.input('Id', sql.INT, req.params.id)
+    .input('Umowa', sql.VarChar(3), 'NIE')
+    .query('Update Uzytkownik set Umowa = @Umowa WHERE Id = @Id')
+  } catch (err) 
+  {console.error('Nie udało się zmienić umowy użytkownika', err)
+}
+res.message = `Zmieniono umowę użytkownika o id ${req.params.id}`;
+
+res.redirect("/Uzytkownik")}
+
 async function showUlubione(req, res) {
   res.render('ulubione', { title: 'Ulubione' })
 }
@@ -350,6 +375,8 @@ router.get('/main', main);
 router.get('/Register-admin', showRegisterFormAdmin);
 router.post('/Register-admin', registerAdmin);
 router.post('/users/:id/delete', deleteUser);
+router.post('/users/:id/TAK', ZmianaUmowyTAK)
+router.post('/users/:id/NIE', ZmianaUmowyNIE)
 router.get('/ulubione', showUlubione);
 router.post('/ulubione', dodajUlubione);
 

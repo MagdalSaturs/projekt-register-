@@ -36,6 +36,16 @@
                   <button type="submit" class="btn btn-sm btn-outlince-danger">&times;</button>
                 </form>
             </td>
+            <td>
+              <form action="users/{{this.Id}}/TAK" method="POST">
+                <button type="submit" class="btn btn-sm btn-outlince-danger">&times;</button>
+              </form>
+            </td>
+            <td>
+              <form action="users/{{this.Id}}/NIE" method="POST">
+                <button type="submit" class="btn btn-sm btn-outlince-danger">&times;</button>
+              </form>
+            </td>
         </tr>
         {{/each}}
     </tbody>

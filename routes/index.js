@@ -21,7 +21,7 @@ async function showSongs(req, res) {
 
     
 
-    if (req.query.kategoria?.length > 0 && req.query.kraj?.length > 0 && req.query.Wykonawca?.lenth > 0) {
+    if (req.query.kategoria?.length > 0 && req.query.kraj?.length > 0) {
       result = await dbRequest
         .input('Kategoria', sql.VarChar(15), req.query.kategoria)
         .input('KrajPochodzenia', sql.VarChar(15), req.query.kraj)

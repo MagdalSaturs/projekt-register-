@@ -21,7 +21,7 @@ async function showSongs(req, res) {
 
     
 
-    if (req.query.kategoria?.length > 0 && req.query.kraj?.length > 0 && req.query.Wykonawca?.lenth > 0) {
+    if (req.query.kategoria?.length > 0 && req.query.kraj?.length > 0) {
       result = await dbRequest
         .input('Kategoria', sql.VarChar(15), req.query.kategoria)
         .input('KrajPochodzenia', sql.VarChar(15), req.query.kraj)
@@ -34,7 +34,7 @@ async function showSongs(req, res) {
       result = await dbRequest
         .input('KrajPochodzenia', sql.VarChar(15), req.query.kraj)
         .query('SELECT * FROM Piosenka WHERE KrajPochodzenia = @KrajPochodzenia')
-    } else if (req.query.Wykonawca?.lenth > 0) {
+    } else if (req.query.Wykonawca?.length > 0) {
       result = await dbRequest
         .input('Wykonawca', sql.VarChar(300), req.query.Wykonawca)
         .query('SELECT * FROM Piosenka WHERE Wykonawca = @Wykonawca')
@@ -62,7 +62,7 @@ async function showNewProductForm(req, res) {
 }
 
 async function addNewProduct(req, res, next) { 
-  if (req.session.userUmowa = "TAK"){
+  if (req.session.userUmowa === "TAK"){
     try {
       const dbRequest = await request()
       await dbRequest
@@ -80,6 +80,8 @@ async function addNewProduct(req, res, next) {
       console.error('Nie udało się dodać piosenki', err)
     }
   
+    showSongs(req, res)
+  }else{
     showSongs(req, res)
   }
 }
@@ -197,7 +199,8 @@ async function register(req, res) {
   
     if (result.rowsAffected[0] === 1) {
       req.session.userLogin = login;
-      req.session.userUmowa = umowa;
+      req.session.userUmowa = umowa
+      ;
       showSongs(req, res);
     } else {
       res.render('Register', {title: 'Stwórz konto', error: 'Założenie konta się nie powiedło'})
@@ -295,6 +298,7 @@ async function showUlubione(req, res) {
 
 async function dodajUlubione(req, res) {
   const {idPiosenki} = req.body;
+  req.session.userLogin
 }
 
 router.get('/', showSongs);

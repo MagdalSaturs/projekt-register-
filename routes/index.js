@@ -242,6 +242,7 @@ async function registerAdmin(req, res) {
   
     if (result.rowsAffected[0] === 1) {
       req.session.userLogin = login;
+      req.session.userUmowa = umowa;
       showSongs(req, res);
     } else {
       res.render('Register', {title: 'Stwórz konto', error: 'Założenie konta się nie powiedło'})

@@ -74,7 +74,7 @@ async function addNewProduct(req, res, next) {
         .input('DataDodania', sql.Date, parseInt(req.body.DataDodania))
         .input('LinkOkladki', sql.VarChar(300), req.body.LinkOkladki)
         .query('INSERT INTO Piosenka VALUES (@Tytul ,@CzasTrwania, @Wykonawca, @Kategoria, @KrajPochodzenia, @DataDodania, @LinkOkladki)')
-  
+
       res.message = 'Dodano nową piosenke'
     } catch (err) {
       console.error('Nie udało się dodać piosenki', err)
@@ -165,7 +165,7 @@ async function register(req, res) {
   const {imie, nazwisko, login, haslo, email, umowa} = req.body;
 
   try {
-    const dbRequest = await request()
+    let dbRequest = await request()
 
     const result = await dbRequest
       .input('Admin', sql.VarChar(3), 'NIE')
@@ -180,8 +180,14 @@ async function register(req, res) {
   
     if (result.rowsAffected[0] === 1) {
       req.session.userLogin = login;
-      req.session.userUmowa = umowa
-      ;
+      req.session.userUmowa = umowa;    
+      
+      let dbRequest = await request()
+
+     await dbRequest
+        .input('Login', sql.VarChar(25), login)
+        .query(`INSERT INTO Playlista VALUES ('Ulubione','Prywtna','2022-04-04', (SELECT Id FROM Uzytkownik WHERE Login = @Login))`)
+
       showSongs(req, res);
     } else {
       res.render('Register', {title: 'Stwórz konto', error: 'Założenie konta się nie powiedło'})

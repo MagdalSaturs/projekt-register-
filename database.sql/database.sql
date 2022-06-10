@@ -28,13 +28,13 @@ GO
 
 CREATE TABLE Uzytkownik (
 	Id INT NOT NULL IDENTITY PRIMARY KEY,
-	Admin VARCHAR(30) CHECK(Admin IN('TAK', 'NIE')) NOT NULL,
+	Admin VARCHAR(30) CHECK(Admin IN('TAK', 'NIE')) NOT NULL DEFAULT('NIE'),
     Imie VARCHAR(25) NOT NULL,
     Nazwisko VARCHAR(25) NOT NULL,
-    Login VARCHAR(25) UNIQUE NOT NULL,
+    Login VARCHAR(25) NOT NULL UNIQUE,
     Haslo VARCHAR(25) NOT NULL,
     Umowa VARCHAR(25) CHECK(Umowa IN('TAK','NIE')) NOT NULL,
-    Email VARCHAR(25) UNIQUE NOT NULL,
+    Email VARCHAR(25) NOT NULL UNIQUE,
     DataRejestracji DATETIME NOT NULL DEFAULT(GETDATE()),
     DataLogowania DATETIME NOT NULL DEFAULT(GETDATE())
 )
@@ -70,7 +70,7 @@ CREATE TABLE PlaylistaPiosenka (
 
 INSERT INTO Piosenka
 VALUES
-('I need you','3:00','NF','POP','Wielka Brytania',DEFAULT,'https://ecsmedia.pl/c/when-i-grow-up-w-iext54753814.jpg'),
+('I need you','3:00','NF','POP','Wielka Brytania','2022-01-18','https://ecsmedia.pl/c/when-i-grow-up-w-iext54753814.jpg'),
 ('Libe','3:00','Sido','ROCK','Niemcy','2022-01-18','https://kolekcjonerrapu.pl/userdata/public/gfx/621/Sido---Blutzbrudaz---Die-Mukke-Zum-Film-cover-okladka.jpg'),
 ('Freaks','2:00','Surf Curse','ROCK','Anglia','2022-01-18','https://cdns-images.dzcdn.net/images/cover/5aac59ef604ec29937df77577ddf48ec/500x500.jpg'),
 ('Big City Life','4:00','Mattafix','RAP','Ameryka','2022-01-18','https://m.media-amazon.com/images/I/51GaMD5BWWL.jpg'),

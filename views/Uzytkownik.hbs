@@ -19,7 +19,9 @@
             <th>Hasło</th>
             <th>Umowa</th>
             <th>Email</th>
-            <th></th>
+            <th>Usuń</th>
+            <th>zmiana umowy</th>
+            <th>zmiana umowy</th>
         </tr>
     </thead>
     <tbody>
@@ -38,12 +40,12 @@
             </td>
             <td>
               <form action="users/{{this.Id}}/TAK" method="POST">
-                <button type="submit" class="btn btn-sm btn-outlince-danger">&times;</button>
+                <button type="submit" class="btn btn-sm btn-outlince-danger">Tak</button>
               </form>
             </td>
             <td>
               <form action="users/{{this.Id}}/NIE" method="POST">
-                <button type="submit" class="btn btn-sm btn-outlince-danger">&times;</button>
+                <button type="submit" class="btn btn-sm btn-outlince-danger">Nie</button>
               </form>
             </td>
         </tr>

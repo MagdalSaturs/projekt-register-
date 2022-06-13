@@ -232,6 +232,7 @@ async function register(req, res) {
      await dbRequest
         .input('Login', sql.VarChar(25), login)
         .query(`INSERT INTO Playlista VALUES ('Ulubione','Prywtna','2022-04-04', (SELECT Id FROM Uzytkownik WHERE Login = @Login))`)
+        
 
       showSongs(req, res);
     } else {

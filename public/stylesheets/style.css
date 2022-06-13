@@ -11255,4 +11255,6 @@ a.RegBtn {
 
 .function h1 {
   color: red;
+  font-size: 1.75rem !important;
+  margin-right: 125px;
 }

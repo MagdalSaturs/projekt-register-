@@ -73,7 +73,7 @@ async function addNewProduct(req, res, next) {
         .input('KrajPochodzenia', sql.VarChar(30), req.body.KrajPochodzenia)
         .input('DataDodania', sql.Date, parseInt(req.body.DataDodania))
         .input('LinkOkladki', sql.VarChar(300), req.body.LinkOkladki)
-        .query('INSERT INTO Piosenka VALUES (@Tytul ,@CzasTrwania, @Wykonawca, @Kategoria, @KrajPochodzenia, @DataDodania, @LinkOkladki)')
+        .query(`INSERT INTO Piosenka VALUES (@Tytul ,@CzasTrwania, @Wykonawca, @Kategoria, @KrajPochodzenia, @DataDodania, @LinkOkladki)`)
 
       res.message = 'Dodano nową piosenke'
     } catch (err) {
@@ -85,6 +85,7 @@ async function addNewProduct(req, res, next) {
     showSongs(req, res)
   }
 }
+
 
 async function deleteProduct(req, res) {
 

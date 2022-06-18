@@ -222,7 +222,10 @@ async function register(req, res) {
       .input('Email', sql.VarChar(25), email)
       .input('Umowa', sql.VarChar(25), umowa)
       .query('INSERT INTO Uzytkownik VALUES (@Admin, @Imie, @Nazwisko, @Login, @Haslo, @Umowa, @Email, DEFAULT, DEFAULT)')
-
+  } catch (err) {
+    console.error(err);
+    res.render('Register', {title: 'Logownie', error: 'Założenie konta się nie powiedło'})
+  }
   try {
     let dbRequest = await request()
     

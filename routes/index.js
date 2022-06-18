@@ -231,6 +231,7 @@ async function register(req, res) {
     
     const result = await dbRequest
       .input('Id', sql.INT, req.params.id)
+      .input('Login', sql.VarChar(25), login)
       .query("INSERT INTO Playlista VALUES (@Login, 'Prywtna', DEFAULT, @Id)")
     
       
@@ -240,13 +241,13 @@ async function register(req, res) {
       
       let dbRequest = await request()
 
-     await dbRequest
-        .input('Login', sql.VarChar(25), login)
-        .query(`INSERT INTO Playlista VALUES ('Ulubione','Prywtna','2022-04-04', (SELECT Id FROM Uzytkownik WHERE Login = @Login), (SELECT PlylistaId FROM PlaylistaPiosenka )) 
-        INSERT INTO PlaylistaPiosenka
-        VALUES
-        ((SELECT Id FROM Playlista),(SELECT * FROM Piosenki WHERE )),
-        `)
+    //  await dbRequest
+    //     .input('Login', sql.VarChar(25), login)
+    //     .query(`INSERT INTO Playlista VALUES ('Ulubione','Prywtna','2022-04-04', (SELECT Id FROM Uzytkownik WHERE Login = @Login), (SELECT PlylistaId FROM PlaylistaPiosenka )) 
+    //     INSERT INTO PlaylistaPiosenka
+    //     VALUES
+    //     ((SELECT Id FROM Playlista),(SELECT * FROM Piosenki WHERE )),
+    //     `)
         
 
       showSongs(req, res);

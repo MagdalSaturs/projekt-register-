@@ -220,9 +220,16 @@ async function register(req, res) {
       .input('Haslo', sql.VarChar(25), haslo)
       .input('Email', sql.VarChar(25), email)
       .input('Umowa', sql.VarChar(25), umowa)
-      .query('INSERT INTO Uzytkownik VALUES (@Admin, @Imie, @Nazwisko, @Login, @Haslo, @Umowa, @Email, DEFAULT, DEFAULT)'
-    )
-  
+      .query('INSERT INTO Uzytkownik VALUES (@Admin, @Imie, @Nazwisko, @Login, @Haslo, @Umowa, @Email, DEFAULT, DEFAULT)')
+
+  try {
+    let dbRequest = await request()
+    
+    const result = await dbRequest
+      .input('Id', sql.INT, req.params.id)
+      .query("INSERT INTO Playlista VALUES (@Login, 'Prywtna', DEFAULT, @Id)")
+    
+      
     if (result.rowsAffected[0] === 1) {
       req.session.userLogin = login;
       req.session.userUmowa = umowa;    
@@ -382,7 +389,7 @@ router.post('/Register-admin', registerAdmin);
 router.post('/users/:id/delete', deleteUser);
 router.post('/users/:id/TAK', ZmianaUmowyTAK)
 router.post('/users/:id/NIE', ZmianaUmowyNIE)
-router.get('/ulubione', showUlubione);
-router.post('/ulubione', dodajUlubione);
+router.get('/song/:id/love', showUlubione);
+router.post('/song/:id/love', dodajUlubione);
 
 module.exports = router;

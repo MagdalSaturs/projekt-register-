@@ -366,13 +366,52 @@ res.message = `Zmieniono umowę użytkownika o id ${req.params.id}`;
 res.redirect("/Uzytkownik")}
 
 async function showUlubione(req, res) {
-  res.render('ulubione', { title: 'Ulubione' })
+  let songs = []
+
+  if (!req.session || !req.session.userLogin) {
+    res.redirect('/main')
+    return;
+  }
+  try {
+    const dbRequest = await request()
+    let result;
+
+      {
+      result = await dbRequest.query('SELECT * FROM Piosenka')
+    }
+
+    songs = result.recordset
+  } catch (err) {
+    console.error('Nie udało się pobrać piosenki', err)
+  }
+
+  res.render('ulubione', { 
+    title: 'Lista ulubionych piosenek', 
+    songs: songs, 
+    message: res.message, 
+    kategoria: req.query.kategoria,
+    userLogin: req.session?.userLogin
+  })
 }
 
 async function dodajUlubione(req, res) {
   const {idPiosenki} = req.body;
   req.session.userLogin
+  try {
+    const dbRequest = await request()
+
+    await dbRequest
+      .input('Id', sql.INT, req.params.id)
+      .query('Insert into PlaylistaPiosenka WHERE Id = @Id')
+  } catch (err) {
+    console.error('Nie udało się dodać piosenki', err)
+  }
+
+  res.message = `Dodano  piosenke o id ${req.params.id}`;
+
+    res.redirect("/")
 }
+
 
 router.get('/', showSongs);
 router.get('/new-song', showNewProductForm);

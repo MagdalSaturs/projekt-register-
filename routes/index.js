@@ -213,7 +213,6 @@ async function register(req, res) {
     let dbRequest = await request()
 
     const result = await dbRequest
-      .input('Id', sql.INT, Id)
       .input('Admin', sql.VarChar(3), 'NIE')
       .input('Imie', sql.VarChar(25), imie)
       .input('Nazwisko', sql.VarChar(25), nazwisko)
@@ -224,7 +223,6 @@ async function register(req, res) {
       .query('INSERT INTO Uzytkownik VALUES (@Admin, @Imie, @Nazwisko, @Login, @Haslo, @Umowa, @Email, DEFAULT, DEFAULT)')
     
     const resul = await dbRequest
-      .input('Id', sql.INT, Id)
       .input('Login', sql.VarChar(25), login)
       .query("INSERT INTO Playlista VALUES (@Login, 'Prywtna', DEFAULT, @Id)")
     

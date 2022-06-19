@@ -19,7 +19,6 @@ async function showSongs(req, res) {
     const dbRequest = await request()
     let result;
 
-    
 
     if (req.query.kategoria?.length > 0 && req.query.kraj?.length > 0) {
       result = await dbRequest
@@ -208,12 +207,13 @@ async function showRegisterForm(req, res) {
 }
 
 async function register(req, res) {
-  const {imie, nazwisko, login, haslo, email, umowa} = req.body;
+  const {Id, imie, nazwisko, login, haslo, email, umowa} = req.body;
 
   try {
     let dbRequest = await request()
 
     const result = await dbRequest
+      .input('Id', sql.INT, Id)
       .input('Admin', sql.VarChar(3), 'NIE')
       .input('Imie', sql.VarChar(25), imie)
       .input('Nazwisko', sql.VarChar(25), nazwisko)
@@ -222,19 +222,14 @@ async function register(req, res) {
       .input('Email', sql.VarChar(25), email)
       .input('Umowa', sql.VarChar(25), umowa)
       .query('INSERT INTO Uzytkownik VALUES (@Admin, @Imie, @Nazwisko, @Login, @Haslo, @Umowa, @Email, DEFAULT, DEFAULT)')
-  } catch (err) {
-    console.error(err);
-    res.render('Register', {title: 'Logownie', error: 'Założenie konta się nie powiedło'})
-  }
-  try {
-    let dbRequest = await request()
     
-    const result = await dbRequest
-      .input('Id', sql.INT, req.params.id)
+    const resul = await dbRequest
+      .input('Id', sql.INT, Id)
       .input('Login', sql.VarChar(25), login)
       .query("INSERT INTO Playlista VALUES (@Login, 'Prywtna', DEFAULT, @Id)")
     
       
+
     if (result.rowsAffected[0] === 1) {
       req.session.userLogin = login;
       req.session.userUmowa = umowa;    
@@ -251,14 +246,20 @@ async function register(req, res) {
         
 
       showSongs(req, res);
-    } else {
-      res.render('Register', {title: 'Stwórz konto', error: 'Założenie konta się nie powiedło'})
     }
-  } catch (err) {
-    console.error(err);
-    res.render('Register', {title: 'Logownie', error: 'Założenie konta się nie powiedło'})
-  }
+    if (resul.rowsAffected[0] === 1) {
+      req.session.userLogin = login;
+      req.session.userUmowa = umowa;    
+      
+      let dbRequest = await request()
 
+      showSongs(req, res);
+  }
+  }
+  catch (err) {
+    console.error(err);
+    res.render('Register', {title: 'Logownie', error: 'Nie udało się zrobić playlisty'})
+  }
 }
 
 async function admin(req, res) {

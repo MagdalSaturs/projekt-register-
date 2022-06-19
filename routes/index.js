@@ -365,6 +365,9 @@ res.message = `Zmieniono umowę użytkownika o id ${req.params.id}`;
 
 res.redirect("/Uzytkownik")}
 
+async function ulubione(req, res) {
+  res.render('ulubione', { title: 'ulubione' })
+}
 async function showUlubione(req, res) {
   let songs = []
 
@@ -432,6 +435,7 @@ router.post('/Register-admin', registerAdmin);
 router.post('/users/:id/delete', deleteUser);
 router.post('/users/:id/TAK', ZmianaUmowyTAK)
 router.post('/users/:id/NIE', ZmianaUmowyNIE)
+router.get('/ulubione', ulubione);
 router.get('/song/:id/love', showUlubione);
 router.post('/song/:id/love', dodajUlubione);
 

@@ -258,7 +258,7 @@ async function register(req, res) {
   }
   catch (err) {
     console.error(err);
-    res.render('Register', {title: 'Logownie', error: 'Nie udało się zrobić playlisty'})
+    res.render('Register', {title: 'Logownie', error: 'Nie udało się stworzyć użytkownika'})
   }
 }
 

@@ -64,7 +64,7 @@ CREATE TABLE Piosenka (
 
 CREATE TABLE PlaylistaPiosenka (
     PlaylistaId INT FOREIGN KEY REFERENCES Playlista(Id),
-    PiosenkaId INT FOREIGN KEY REFERENCES Piosenka(Id)
+    PiosenkaId INT FOREIGN KEY REFERENCES Piosenka(Id),
 )
 
 
@@ -101,3 +101,7 @@ VALUES
 ('Powiedział mi ktoś?','4:00','Sarius','Rap','Polska','2022-01-19','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7XtUfBBRZoiHgzugHLhXOIHZUoK9U2sy0Vw&usqp=CAU'),
 ('Usta','3:00','Przyłu','Trap','Polska','2022-01-19','https://ecsmedia.pl/c/juniper-w-iext58901693.jpg'),
 ('Bedzie lepiej','3:00','Tymek','Trap','Polska','2022-01-19','https://cdn.newonce.me/uploads/images/4747/schema_meta_data_tymekfit.jpg')
+
+INSERT INTO PlaylistaPiosenka
+VALUES
+('2','31','Bedzie lepiej','3:00','Tymek','Trap','Polska','2022-01-19','https://cdn.newonce.me/uploads/images/4747/schema_meta_data_tymekfit.jpg')

@@ -380,7 +380,7 @@ async function showUlubione(req, res) {
     let result;
 
       {
-      result = await dbRequest.query('SELECT * FROM Piosenka')
+      result = await dbRequest.query('SELECT * FROM PlaylistaPiosenka')
     }
 
     songs = result.recordset
@@ -399,13 +399,14 @@ async function showUlubione(req, res) {
 
 async function dodajUlubione(req, res) {
   const {idPiosenki} = req.body;
+  console.log(idPiosenki);
   req.session.userLogin
   try {
     const dbRequest = await request()
 
     await dbRequest
       .input('Id', sql.INT, req.params.id)
-      .query('Insert into PlaylistaPiosenka WHERE Id = @Id')
+      .query('Insert into PlaylistaPiosenka WHERE PiosenkaId = @Id')
   } catch (err) {
     console.error('Nie udało się dodać piosenki', err)
   }

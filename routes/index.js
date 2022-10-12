@@ -367,14 +367,57 @@ async function ZmianaUmowyNIE(req, res) {
   res.redirect("/Uzytkownik")
 }
 
+async function ulubione(req, res) {
+  res.render('ulubione', { title: 'ulubione' })
+}
 async function showUlubione(req, res) {
-  res.render('ulubione', { title: 'Ulubione' })
+  let songs = []
+
+  if (!req.session || !req.session.userLogin) {
+    res.redirect('/main')
+    return;
+  }
+  try {
+    const dbRequest = await request()
+    let result;
+
+      {
+      result = await dbRequest.query('SELECT * FROM PlaylistaPiosenka')
+    }
+
+    songs = result.recordset
+  } catch (err) {
+    console.error('Nie udało się pobrać piosenki', err)
+  }
+
+  res.render('ulubione', { 
+    title: 'Lista ulubionych piosenek', 
+    songs: songs, 
+    message: res.message, 
+    kategoria: req.query.kategoria,
+    userLogin: req.session?.userLogin
+  })
 }
 
 async function dodajUlubione(req, res) {
   const {idPiosenki} = req.body;
+  console.log(idPiosenki);
   req.session.userLogin
+  try {
+    const dbRequest = await request()
+
+    await dbRequest
+      .input('Id', sql.INT, req.params.id)
+      .query('Insert into PlaylistaPiosenka WHERE PiosenkaId = @Id')
+  } catch (err) {
+    console.error('Nie udało się dodać piosenki', err)
+  }
+
+  res.message = `Dodano  piosenke o id ${req.params.id}`;
+
+    res.redirect("/")
 }
+
 
 router.get('/', showSongs);
 router.get('/new-song', showNewProductForm);
@@ -395,6 +438,7 @@ router.post('/Register-admin', registerAdmin);
 router.post('/users/:id/delete', deleteUser);
 router.post('/users/:id/TAK', ZmianaUmowyTAK)
 router.post('/users/:id/NIE', ZmianaUmowyNIE)
+router.get('/ulubione', ulubione);
 router.get('/song/:id/love', showUlubione);
 router.post('/song/:id/love', dodajUlubione);
 
